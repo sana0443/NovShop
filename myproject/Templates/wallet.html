@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+   
+    {% csrf_token %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">My Wallet</h5>
+          <hr>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <p class="mb-0"><strong>Current Balance:</strong></p>
+              <h4>{{ wallet.balance }}/-</h4>
+            </div>
+            <div class="col-md-6 text-right">
+              <p class="mb-0"><strong>Last Transaction:</strong></p>
+              {% if wallet.transactions %}
+                <h6 class="mb-0">{{ wallet.transactions.last }}</h6>
+              {% else %}
+                <h6 class="mb-0">No Transactions Yet</h6>
+              {% endif %}
+            </div>
+          </div>
+          <a href="" class="btn btn-primary btn-block">Add Funds</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

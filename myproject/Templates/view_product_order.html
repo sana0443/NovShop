@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Order Details</h4>
+  <table class="table table-borderless">
+    <thead class="text-muted">
+      <tr class="small text-uppercase">
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in orderitem %}
+      <tr>
+        <td>
+          <figure class="itemside align-items-center">
+            <div class="how-itemcart1">
+              <img
+                src="{{ item.product.product_image.url }} "
+                style="height: 100px"
+                alt="IMG"
+              />
+            </div>
+          </figure>
+        </td>
+        <td class="column">
+          <label class="my-3" for="">{{ item.quantity }}</label>
+        </td>
+        <td>
+          <div class="price-wrap">
+            <var class="price">₹ {{ordernumber.total_price}}</var><br />
+            <small class="text-muted">
+              ₹{{ item.price}} each
+            </small>
+          </div>
+          <!-- price-wrap .// -->
+        </td>
+        
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <hr >
+  
+
+  {% if orderitem %}
+  <a href="{% url 'cancel_order' ordernumber.tracking_number %}" class="btn btn-danger">Cancel Order</a>
+{% endif %}
+
+
+  {% endblock content %}

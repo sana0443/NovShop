@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <div id="invoice">
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-primary"><i class="fa fa-print"></i> Print</button>
+            {% comment %} <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button> {% endcomment %}
+        </div>
+    </div>
+    <div>
+     <div class="invoice">
+    <div class="container-fluid bg-light py-3">
+        <a href="{% url 'home' %}" class=" site-btn mb-3">Go to Home</a>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Invoice <span class="float-right">Order {{ order.payment_id }}</span></h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Billed To:</h4>
+                                <p>
+                                    {{ order.name }}<br>
+                                    {{ order.address }}<br>
+                                    {{ order.city }}, {{ order.post_code }}<br>
+                                    {{ order.country }}
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <h4>Payment Details:</h4>
+                                <p>
+                                    Payment Method: {{ order.payment_mode }}<br>
+                                    Payment Id: {{ order.payment_id }}<br>
+                                    {{ order.user.email }}<br>
+                                    Payment Status: <span class="text-success">{{ order.order_status }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Order Summary:</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th class="text-center">Price</th>
+                                                <th class="text-center">Quantity</th>
+                                                <th class="text-right">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in orderitems %}
+                                            <tr>
+                                                <td>{{ item.product.title }}</td>
+                                                <td class="text-center">${{ item.product.discount_price }}</td>
+                                                <td class="text-center">{{ item.quantity }}</td>
+                                                <td class="text-right">${{ item.total }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan="3" class="text-right"><strong>Total Price:</strong></td>
+                                                <td class="text-right">${{ order.total_price }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-success text-center mt-3 mb-0" role="alert">
+                                    <h4 class="alert-heading">Thank you for shopping with us!</h4>
+                                    <p>We hope to see you again soon.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                <a href="{% url 'products' 0 %}" class=" site-btn btn-block mt-3">Continue Shopping</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <script>
+            document.getElementById("printInvoice").addEventListener("click", function() {
+                window.print();
+            });
+        </script>
+        
+</body>
+
+
+{% endblock content %}

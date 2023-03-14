@@ -1,0 +1,82 @@
+{% extends 'Adminside/Adbase.html' %}
+{% block main %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="card shadow">
+    <div class="card-body">
+        <div class="d-flex mb-3 justify-content-end">
+            <form action="{% url 'order_manage' %}" class="search" method="POST">
+              {% csrf_token %} 
+              <div class="input-group w-100">
+                <input type="text" class="form-control" style="width: 60%" placeholder="Search" name="keyword" />
+      
+                <div class="input-group-append">
+                  <button class="btn btn-dark" type="submit">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">{{order_status}} Order</h5>
+        <div class="container-fluid">
+            <table class="table table-bordered table-sm" id="example">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>OrderId</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in paged_users %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.id}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.user.username}}</td>
+                    <td>{{i.get_order_status_display}}</td>
+                    <td>
+                       
+                        <a href="{% url 'admin_view_order' i.tracking_number %}" class="btn btn-info">
+                            <i class="fas fa-info"></i>
+                        </a>
+                        <a href="/delete-order/{{i.id}}/?action={{request.GET.action}}" class="site-btn-danger"
+                           onclick="return confirm('Are You Sure?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            
+            </table>
+        </div>
+    </div>
+        
+    <div class="container">
+        <nav class="mt-4" aria-label="Page navigation sample">
+          {% if paged_users.has_other_pages %}
+          <ul class="pagination">
+            {% if users.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ paged_users.previous_page_number }}">Previous</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            {% endif %} {% for page_number in paged_users.paginator.page_range %} {% if paged_users.number == page_number %}
+            <li class="page-item active"><a class="page-link" href="#">{{ page_number }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+            {% endif %} {% endfor %} {% if paged_users.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{paged_users.next_page_number }}">Next</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        </nav>
+      </div>
+</div>
+{% endblock %}
