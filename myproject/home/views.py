@@ -182,30 +182,6 @@ def login_view(request):
 	form = AuthenticationForm()
 	return render(request, 'login.html', {'form': form})
 
-# def Profile(request):
-#     if profile.objects.filter(user=request.user):
-#         userprofile = get_object_or_404(profile, user=request.user)
-#     else:
-#         userprofile = profile.objects.create(user=request.user)
-
-#     if request.method == 'POST':
-#         u_form = UserUpdate(request.POST, instance=request.user)
-#         p_form = profileUpdate(request.POST, request.FILES, instance=request.user.profile)
-#         if u_form.is_valid and p_form.is_valid:
-#             u_form.save()
-#             p_form.save()
-#             messages.success(request, f'updated successfully')
-#         else:
-#             messages.error(request, 'There was an error while updating your profile')
-#     else:
-#         u_form = UserUpdate(instance=request.user)
-#         p_form = profileUpdate(instance=request.user.profile)
-#     Cart = cart.objects.filter(user=request.user)
-#     item_count = Cart.count
-
-#     return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form, 'userprofile': userprofile, 'item_count': item_count})
-
-
 
 def Profile(request):
   if request.user.is_authenticated:
@@ -228,7 +204,7 @@ def Profile(request):
     else:
         u_form = UserUpdate(instance=request.user)
         p_form = profileUpdate(instance=request.user.profile)
-        # pic_form = ProfilePictureUpdate(instance=request.user.profile)
+       
     Cart = cart.objects.filter(user=request.user)
     item_count = Cart.count
   else:
@@ -237,9 +213,3 @@ def Profile(request):
   return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form,  'userprofile': userprofile, 'item_count': item_count})
 
 
-
-# def view_profile(request):
-#        Profile=profile.objects.get(user=request.user)
-#        print(Profile)
-
-#        return render(request,'order.html',{'Profile':Profile})

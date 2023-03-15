@@ -137,10 +137,7 @@ def add_product(request):
         messages.success(request, "Product added")
     return render(request, 'Adminside/add_products.html', locals())
 
-# def search_products(request): 
-#     searched=request.GET['search']
-#     searchnames=User.objects.filter(username__icontains=searched)
-#     return render(request,'Adminside/products.html',{'stu':searchnames})  
+
 
 def view_product(request):
 

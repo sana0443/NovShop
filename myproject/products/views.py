@@ -234,33 +234,6 @@ def place_order(request):
             post_code = check[4]
             country = check[5]
 
-           
-        # form = OrderForm(request.POST)
-        # if address ():
-            # ade=check.POST['address1']
-            # nm=check.POST['name']
-            # print(ade,'this address')
-            # if Address.objects.filter(user=request.user,name=nm,address=ade) :
-            #         check = True
-
-            # else :
-            #         check=False
-                    
-                
-            # print(check)
-            # add=Address()
-            # if check == False :
-            #         add.user=request.user
-            #         add.name = address.POST['first_name']
-            #         add.address = address.POST['address_line_1']
-            #         add.city = address.POST['city']
-            #         add.state=address.POST['state']
-            #         add.country=address.POST['country']
-            #         # add.email=current_user.email
-            #         add.postal_code = request.POST['postalcode']
-            #         # add.phone=form.cleaned_data['phone']
-            #         add.save()
-        # Handle payment form submission
         else:
             new_order = Order()
             new_order.user = current_user
@@ -473,18 +446,20 @@ def cancel_order(request, order_id):
  # Calculate the refund amount
     
     refund_amount = float(totals) - float(wallets)
-    amount = refund_amount
+    amounts = refund_amount
+    amount=amounts*100
   
  
     pay_mode=order.payment_mode
     print(amount,'this is lasy amount --------------')
     if (pay_mode=="Payment with Razorpay"):
 
+
         payment_id=order.payment_id
-     
+        captured_payment=client.payment.capture(payment_id,amount)
         refund_data = {
         "payment_id": payment_id,
-        "amount": amount*100,  # amount to be refunded in paise
+        "amount": amount,  # amount to be refunded in paise
         "currency": "INR",
       
 
