@@ -152,10 +152,10 @@ LOGIN_REDIRECT_URL='home'
 STATIC_URL="/static/"
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST='smtp-relay.sendinblue.com'
 EMAIL_PORT=587
 EMAIL_HOST_USER='sanadharwish@gmail.com'
-EMAIL_HOST_PASSWORD='csonywlyigngkudu'
+EMAIL_HOST_PASSWORD='C8aIdKBgTf6sVU9J'
 EMAIL_USE_TLS=True
 
 # Default primary key field type

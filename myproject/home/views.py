@@ -208,6 +208,7 @@ def login_view(request):
 
 
 def Profile(request):
+  if request.user.is_authenticated:
     if profile.objects.filter(user=request.user):
         userprofile = get_object_or_404(profile, user=request.user)
     else:
@@ -230,8 +231,10 @@ def Profile(request):
         # pic_form = ProfilePictureUpdate(instance=request.user.profile)
     Cart = cart.objects.filter(user=request.user)
     item_count = Cart.count
+  else:
+    return redirect('signin')
 
-    return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form,  'userprofile': userprofile, 'item_count': item_count})
+  return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form,  'userprofile': userprofile, 'item_count': item_count})
 
 
 

@@ -409,7 +409,8 @@ def coupon(request):
 
 
 def orders(request):
-    try:
+    if request.user.is_authenticated:
+   
         Profile = profile.objects.get(user=request.user)
         orders = Order.objects.filter(user=request.user).order_by('-date_created')
         Cart = cart.objects.filter(user=request.user)
@@ -420,12 +421,9 @@ def orders(request):
             'Profile': Profile,
             'count': count
         }
-    except profile.DoesNotExist:
-        context = {
-            'orders': None,
-            'Profile': None,
-            'count': None
-        }
+    else:
+        redirect('signin')
+     
 
     return render(request, 'order.html', context)
 
