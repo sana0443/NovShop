@@ -350,6 +350,14 @@ def wishlist(request, pk):
     return redirect('wishlists')
 
 
+def remove_wishlist(request,pk):
+    products = get_object_or_404(product, id=pk)
+    wishlist=Wishlist.objects.get(user=request.user)
+   
+    wishlist.products.remove(products)
+    return redirect('wishlists')
+
+
 def Wishlist_View(request):
     if request.user.is_authenticated:
         
@@ -390,15 +398,14 @@ def orders(request):
         count = len(Cart)
 
         context = {
-            'orders': orders,
-            'Profile': Profile,
-            'count': count
-        }
+                'orders': orders,
+                'Profile': Profile,
+                'count': count
+            }
+        return render(request, 'order.html', context)
+    
     else:
-        redirect('signin')
-     
-
-    return render(request, 'order.html', context)
+      return redirect('signin')
 
         
 
@@ -424,6 +431,8 @@ def view_product_order(request,trackno):
 
 def wallet_balance(request):
     wallet = Wallet.objects.get(user=request.user)
+  
+   
     balance = wallet.balance
     return render(request, 'wallet.html', locals())
 

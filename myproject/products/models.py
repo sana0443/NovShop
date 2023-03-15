@@ -157,7 +157,7 @@ class Refund(models.Model):
 
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.FloatField()
+    balance = models.FloatField(default=0)
 
 
 

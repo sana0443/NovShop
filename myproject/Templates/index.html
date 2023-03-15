@@ -131,9 +131,9 @@
 
     <!-- Categories Section Begin -->
     {% block content %}
-    
+  
     <section class="categories">
-        <div class="container-fluid">
+        <div class="container-fluid" style='overflow:hidden;'>
             <div class="row">
                 <div class="col-lg-6 p-0">
                     <div class="categories__item categories__large__item set-bg"
@@ -197,6 +197,7 @@
         </div>
     </div>
 </section>
+</div>
 <!-- Categories Section End -->
 
 <!-- Product Section Begin -->
@@ -261,36 +262,40 @@
 <!-- Banner Section Begin -->
 <section class="banner set-bg" data-setbg="{% static 'img/banner/banner-1.jpg'%}">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-7 col-lg-8 m-auto">
-                <div class="banner__slider owl-carousel">
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <h1>Available Coupons</h1>
-                            {% if coupons %}
-                              <div class="coupon-banner">
-                                <h2>Save Big with Our Coupons!</h2>
-                                <ul>
-                                {% for c in coupons %}
-                                  <li>{{ c.code }} - {{ c.discount }}% off</li>
-                                  <a href="{% url 'products' 0 %}">Shop now</a>
-                                {% endfor %}
-                                </ul>
-                              </div>
-                            {% else %}
-                              <p>No coupons available at the moment.</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                   
-</section>
+      <div class="row">
+        <div class="col-lg-7 col-md-8 col-sm-10 mx-auto">
+          <div class="banner__slider owl-carousel">
+            <div class="banner__item">
+              <div class="banner__text">
+                <h1>Available Coupons</h1>
+                {% if coupons %}
+                  <div class="coupon-banner">
+                    <h2>Save Big with Our Coupons!</h2>
+                    <ul>
+                      {% for c in coupons %}
+                      <li>{{ c.code }} - {{ c.discount }}% off</li>
+                      <a href="{% url 'products' 0 %}">Shop now</a>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% else %}
+                  <p>No coupons available at the moment.</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="banner__item">
+              <div class="banner__text">
+                <span>The Chloe Collection</span>
+                <h1>The Project Jacket</h1>
+                <a href="#">Shop now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 <!-- Banner Section End -->
 
 <!-- Trend Section Begin -->
@@ -342,8 +347,9 @@
 <!-- Discount Section End -->
 
 <!-- Services Section Begin -->
+
 <section class="services spad">
-    <div class="container">
+    <div class="container p-0 overflow:hidden">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="services__item">
@@ -379,8 +385,9 @@
 <!-- Services Section End -->
 
 <!-- Instagram Begin -->
+ 
 <div class="instagram">
-    <div class="container-fluid">
+    <div class="container-fluid px-0 overflow-x-auto">
         <div class="row">
             <div class="col-lg-2 col-md-4 col-sm-4 p-0">
                 <div class="instagram__item set-bg" data-setbg="{% static 'img/instagram/insta-1.jpg'%}">
@@ -432,6 +439,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock content %}
 <!-- Instagram End -->

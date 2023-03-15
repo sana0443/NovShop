@@ -22,6 +22,7 @@
 
 <div class="container my-5">
   <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% if products %}
       {% for prod in products %}
       <div class="col mb-4">
           <div class="card h-100">
@@ -32,11 +33,32 @@
                   <h5 class="card-title">{{ prod.title }}</h5>
                   <div class="product__details__price">Rs.{{prod.discount_price}}/- <span>Rs.{{prod.selling_price}}/-</span></div>
                   <p>{{products.description}}</p>
+                  <form action="{% url 'remove_wishlist' prod.id %}" method="POST">
+                    {% csrf_token %}
+               
+                <button type="submit" class="site-btn">
+                    <span class=""></span> remove
+                </button>
+          
+                  <ul class="product__hover">
+                    <li><a href=""><span class="fa fa-eye"></span></a></li>
+                    <li><a href=""><span class="icon_heart_alt"></span></a></li>
+                    
+                    <li><a href=""><span class="icon_bag_alt"></span></a></li>
+                </ul>
                   {% comment %} <p class="card-text">Rs.{{ prod.discount_price }}/- <span >Rs.{{ prod.selling_price }}/-</span></p> {% endcomment %}
               </div>
           </div>
       </div>
       {% endfor %}
+{% else %}
+<div class="container d-flex flex-column justify-content-center align-items-center vh-50">
+    <div class="product__item__pic mb-5 text-center">
+      <h1><span class="text-dark">Your Wishlist is </span><span class="text-danger">empty</span>!</h1>
+      <a href="{% url 'products' 0 %}" class="btn btn-danger mt-3">Go to shop</a>
+    </div>
+  </div>
+      {% endif %}
   </div>
 </div>
 {% endblock %}
