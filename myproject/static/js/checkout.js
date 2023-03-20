@@ -178,6 +178,7 @@ $(document).ready(function () {
     var email = $("[name='email']").val();
     var phone = $("[name='phone']").val();
     var address = $("[name='address']").val();
+  
    
     var city = $("[name='city']").val();
     var state = $("[name='state']").val();
@@ -228,6 +229,7 @@ $(document).ready(function () {
                 'post_code':postal_code,
                 'phone':phone,
                 'email':email,
+                'phone':phone,
                 
               
                 'payment_mode':'Payment with wallet',
@@ -272,6 +274,7 @@ $(document).ready(function () {
                     'phone':phone,
                     'email':email,
                     'wallet_balance':walletz,
+                    'phone':phone,
                   
                     'payment_mode':'Payment with Razorpay',
                     'payment_id':responseb.razorpay_payment_id,

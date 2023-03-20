@@ -5,15 +5,21 @@ from django.contrib.auth.models import User
 
 def counts(request):
     
-    wishlists=Wishlist.objects.all()
-    wishlist_count=wishlists.count()
+    if request.user.is_authenticated :
+        wishlists=Wishlist.objects.filter(user=request.user)
+        wishlist_count=wishlists.count()
 
-    order=OrderItem.objects.all()
-    orderitem_count=order.count()
+        order=OrderItem.objects.filter(user=request.user)
+        orderitem_count=order.count()
 
 
-    Cart=cart.objects.all()
-    cart_count=Cart.count()
+        Cart=cart.objects.filter(user=request.user)
+        cart_count=Cart.count()
+    else :
+
+        wishlist_count=0
+        cart_count=0
+        orderitem_count=0
 
     contxt={
         'wishlist_count':wishlist_count,

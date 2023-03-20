@@ -61,7 +61,7 @@
 
               <form action="{% url 'signup' %}" method="POST">
                 {% csrf_token %}
-                <div class="form-outline mb-6">
+                <div class="form-outline mb-4">
                   {% comment %} <input type="text"name="username" id="form3Example1cg" class="form-control form-control-lg" required /> {% endcomment %}
                   {{form.name}}
                   <label class="form-label" for="form3Example1cg">Your Name</label>
@@ -84,6 +84,11 @@
                   <label class="form-label" for="form3Example4cg">confirm Password</label>
                 </div>
 
+                {% comment %} <div class="form-outline mb-4">
+                  <input type="password" name="password2" id="form3Example4cdg" class="form-control form-control-lg"required  />
+                 {{password2}}
+                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                </div> {% endcomment %}
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />

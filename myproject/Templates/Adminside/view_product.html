@@ -71,7 +71,7 @@
                 <tbody>
                 {% for i in paged_users %}
                 <tr>
-                    <td>{{forloop.counter}}</td>
+                    <td>{{ forloop.counter0|add:paged_users.start_index }}</td>
                     <td><img src="{{i.product_image.url}}" style="width:100px"/></td>
                     <td>{{i.title}}</td>
                     <td>{{i.category.name}}</td>

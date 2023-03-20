@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.db.models import Q
 from.forms import  CartQuantityForm
 import random
+from django.http import Http404
 from datetime import datetime
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -28,10 +29,31 @@ class CategoryView(View):
         title=product.objects.filter(category=id).values('title').annotate(total=Count('title'))
         return render(request,'category.html',locals())
 
+# class product_details(View):
+#    def get(self,request,pk):
+   
+#     category = Category.objects.get(id=pk)
+#     products=product.objects.get(pk=pk,category=category)
+     
+#     allcategory = Category.objects.all()
+      
+    
+            
+#     return render(request,"product-details.html",locals())
+
+
 class product_details(View):
-   def get(self,request,pk):
-      products=product.objects.get(pk=pk)
-      return render(request,"product-details.html",locals())
+   def get(self, request, pk):
+        try:
+            products= product.objects.get(pk=pk)
+        except product.DoesNotExist:
+            raise Http404("Product does not exist")
+        
+        related_products = product.objects.filter(category=products.category).exclude(pk=pk)[:4]
+        allcategory = Category.objects.all()
+      
+        return render(request, "product-details.html", locals())
+
 
 
    
@@ -57,6 +79,8 @@ def add_to_cart(request, prod_id):
        
         user = request.user
         is_Cart_exists=cart.objects.filter(product=Product,user=user).exists()
+    else:
+        return redirect('signin')
     if is_Cart_exists:
         Cart = cart.objects.filter(user=user, product=Product)
         ex_var_list=[]
@@ -72,6 +96,7 @@ def add_to_cart(request, prod_id):
             item=cart.objects.get(product=Product,id=item_id)
             item.quantity+=1
             item.save()
+            return redirect('show-cart')
            
         else:
             item=cart.objects.create(product=Product,quantity=1,user=user)
@@ -79,6 +104,7 @@ def add_to_cart(request, prod_id):
              item.variations.clear()
              item.variations.add(*product_variation)
              item.save()
+            return redirect('show-cart')
 
         
     else:
@@ -89,22 +115,43 @@ def add_to_cart(request, prod_id):
             Cart.variations.clear()
             Cart.variations.add(*product_variation)
             Cart.save()
-    return redirect('show-cart')
-  else:
-        return redirect('home')
+         return redirect('show-cart')
+
+  else: # GET request
+        if request.user.is_authenticated:
+            user = request.user
+            is_cart_exists = cart.objects.filter(product=Product, user=user).exists()
+        else:
+            return redirect('signin')
+
+        if is_cart_exists:
+            cart_item = cart.objects.get(user=user, product=Product)
+            cart_item.quantity += 1
+            cart_item.save()
+        else:
+            cart_item = cart.objects.create(product=Product, quantity=1, user=user)
+        return redirect('show-cart')
+   
 
 
 def products(request,pid):
-    print('im here')
+  
     if pid == 0:
-     Product = product.objects.all()
+        Product = product.objects.all()
+        paginator   = Paginator(Product, 4) 
+        page        = request.GET.get('page')
+        paged_users = paginator.get_page(page)
     else:
      category = Category.objects.get(id=pid)
+ 
+
      Product = product.objects.filter(category=category)
+   
     allcategory = Category.objects.all()
     context={
-        'Product':Product,
-        'allcategory':allcategory
+        # 'Product':Product,
+        'allcategory':allcategory,
+        'paged_users' : paged_users,
     
             }
  
@@ -210,15 +257,24 @@ def place_order(request):
     post_code= ""
     country=""
     quantity=0
+    
     for item in cartitems:
         total += (item.product.discount_price * item.quantity)
         quantity += item.quantity
     sub_total = total
     grand_total = int(sub_total + shipping_amt)
 
+ 
+   
+
     # Fetch user's address details
     address = Address.objects.filter(user=request.user)
-
+    wallet_balance = Wallet.objects.get(user=request.user)
+    wallet_balanced = wallet_balance.balance
+    if wallet_balanced >= grand_total:
+        pay=0
+    else:
+        pay=grand_total-wallet_balanced
     # Handle form submission
     if request.method == 'POST':
         # Handle address form submission
@@ -235,15 +291,47 @@ def place_order(request):
             country = check[5]
 
         else:
+            
             new_order = Order()
+            Name = request.POST.get('Name')
+            Email = request.POST.get('email')
+            Add = request.POST.get('address')
+            City = request.POST.get('city')
+            State = request.POST.get('state')
+            Country = request.POST.get('country')
+            PostCode= request.POST.get('post_code')
+            try :
+                value = Address.objects.get(name=Name,address=Add)
+
+            except : 
+                value = None
+            
+          
+         
+            if value is None:
+             
+                Address.objects.create(
+                user = current_user,
+                name = Name,
+                address = Add,
+                city = City,
+                state = State,
+                country = Country,
+                email = Email,
+                postal_code = PostCode
+                )
+            else :
+          
+
+                pass
             new_order.user = current_user
-            new_order.name = request.POST.get('Name')
-            new_order.email = request.POST.get('email')
-            new_order.address = request.POST.get('address')
-            new_order.city = request.POST.get('city')
-            new_order.state = request.POST.get('state')
-            new_order.country = request.POST.get('country')
-            new_order.postal_code = request.POST.get('post_code')
+            new_order.name = Name
+            new_order.email = Email
+            new_order.address = Add
+            new_order.city = City
+            new_order.state = State
+            new_order.country = Country
+            new_order.postal_code = PostCode
             new_order.payment_mode = request.POST.get('payment_mode')
             new_order.payment_id = request.POST.get('payment_id')
             new_order.wallet_amt=request.POST.get('wallet_balance')
@@ -257,6 +345,7 @@ def place_order(request):
             new_order_items = cart.objects.filter(user=current_user)
             for item in new_order_items:
                 OrderItem.objects.create(
+                    user = current_user,
                     order=new_order,
                     product=item.product,
                     price=item.product.discount_price,
@@ -297,6 +386,8 @@ def place_order(request):
         'state': state,
         'post_code': post_code,
         'country': country,
+        'wallet_balanced': wallet_balanced,
+        'pay':pay 
        
     }
     return render(request, 'checkout.html', instance_value)
@@ -360,13 +451,19 @@ def remove_wishlist(request,pk):
 
 def Wishlist_View(request):
     if request.user.is_authenticated:
+        try :
+            wishlist = Wishlist.objects.get(user=request.user)
+            products = wishlist.products.all()
+            context = {
+                'products': products
+            }
+            return render(request, 'wishlist.html', context)
+        except :
+            pass
+            return render(request, 'wishlist.html')
+            
+            
         
-        wishlist = Wishlist.objects.get(user=request.user)
-        products = wishlist.products.all()
-        context = {
-            'products': products
-        }
-        return render(request, 'wishlist.html', context)
     else :
         return redirect('signin')
 

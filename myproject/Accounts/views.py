@@ -5,14 +5,15 @@ from products.models import Category,coupen
 
 def home(request):
     
-    
-    category = Category.objects.all()
-    coupons = coupen.objects.filter(active=True)
-    print('ggggggggggggggg')
-    print(coupons)
-    context = {'coupons': coupons,
-            'category':category}
+        
+        category = Category.objects.all()
+        coupons = coupen.objects.filter(active=True)
+        print('ggggggggggggggg')
+        print(coupons)
+        context = {'coupons': coupons,
+                'category':category,
+                }
 
     
     
-    return render(request,'index.html',context)
+        return render(request,'index.html',context)

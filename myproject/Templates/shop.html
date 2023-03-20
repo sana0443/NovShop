@@ -4,7 +4,6 @@
     <!-- Breadcrumb Begin -->
 {% block content %}
      <!-- Breadcrumb Begin -->
-     <div class='container' style='overflow:hidden'>
      <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -68,106 +67,14 @@
                             <button class="site-btn" type ="submit">Filter</button>
                         </form>
                         </div>
-                        {% comment %} <div class="sidebar__sizes">
-                            <div class="section-title">
-                                <h4>Shop by size</h4>
-                            </div>
-                            <div class="size__list">
-                                <label for="xxs">
-                                    xxs
-                                    <input type="checkbox" id="xxs">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="xs">
-                                    xs
-                                    <input type="checkbox" id="xs">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="xss">
-                                    xs-s
-                                    <input type="checkbox" id="xss">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="s">
-                                    s
-                                    <input type="checkbox" id="s">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="m">
-                                    m
-                                    <input type="checkbox" id="m">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="ml">
-                                    m-l
-                                    <input type="checkbox" id="ml">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="l">
-                                    l
-                                    <input type="checkbox" id="l">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="xl">
-                                    xl
-                                    <input type="checkbox" id="xl">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div> {% endcomment %}
-                        {% comment %} <div class="sidebar__color">
-                            <div class="section-title">
-                                <h4>Shop by size</h4>
-                            </div>
-                            <div class="size__list color__list">
-                                <label for="black">
-                                    Blacks
-                                    <input type="checkbox" id="black">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="whites">
-                                    Whites
-                                    <input type="checkbox" id="whites">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="reds">
-                                    Reds
-                                    <input type="checkbox" id="reds">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="greys">
-                                    Greys
-                                    <input type="checkbox" id="greys">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="blues">
-                                    Blues
-                                    <input type="checkbox" id="blues">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="beige">
-                                    Beige Tones
-                                    <input type="checkbox" id="beige">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="greens">
-                                    Greens
-                                    <input type="checkbox" id="greens">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="yellows">
-                                    Yellows
-                                    <input type="checkbox" id="yellows">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div> {% endcomment %}
+                       
+                        
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
                     <div class="row">
-                       {% if Product %}
-                        {% for j in Product %}
+                       {% comment %} {% if Product %} {% endcomment %}
+                        {% for j in paged_users %}
                         <div class="col-lg-4 col-md-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="{{j.product_image.url}}">
@@ -176,7 +83,7 @@
                                         <li><a href="{% url 'product-details' j.id %}"><span class="fa fa-eye"></span></a></li>
                                         <li><a href="{% url 'wishlist' j.id %}"><span class="icon_heart_alt"></span></a></li>
                                         
-                                        <li><a href=""><span class="icon_bag_alt"></span></a></li>
+                                        <li><a href="{% url 'add-to-cart' j.id %}"><span class="icon_bag_alt"></span></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -192,28 +99,48 @@
                                 </div>
                             </div>
                          
-                        </div>
-                    {% endfor %}
-                    {% endif %}
-                  
-                  
-                        
-                        <div class="col-lg-12 text-center">
-                            <div class="pagination__option">
-                                
-                                <a href="?page={{ page_obj.number }}" class="active">{{ page_obj.number }}</a>
-                                {% comment %} <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a> {% endcomment %}
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
                             </div>
+                        {% endfor %}
+                        {% comment %} {% endif %} {% endcomment %}
+                    
+<div class="col-lg-12 text-center">
+                            <div class="pagination__option">
+
+                        {% comment %} <div class="container">
+                             <nav class="mt-4" aria-label="Page navigation sample"> {% endcomment %}
+                            {% if paged_users.has_other_pages %}
+                            <ul class="pagination">
+                                {% if paged_users.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ paged_users.previous_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                                {% endif %} {% for page_number in paged_users.paginator.page_range %} {% if paged_users.number == page_number %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ page_number }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+                                {% endif %} {% endfor %} {% if paged_users.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ paged_users.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                            </nav>
                         </div>
+                   
+                        {% comment %} <div class="col-lg-12 text-center">
+                            <div class="pagination__option">
+                                <a href="#">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                            </div> {% endcomment %}
+                        {% comment %} </div> {% endcomment %}
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
     <!-- Shop Section End -->
 
     <!-- Instagram Begin -->
@@ -271,8 +198,11 @@
             </div>
         </div>
     </div>
-</div>
+
+  
     <!-- Instagram End -->
 
 
   {% endblock  %}
+
+

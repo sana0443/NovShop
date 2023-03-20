@@ -185,13 +185,13 @@ def manage_order(request):
 
 def admin_view_order(request,trackno):
     orders=Order.objects.get(tracking_number=trackno)
-    address=Order.objects.filter(user=request.user).first
+    # address=Order.objects.filter(user=request.user).first
    
     orderitem=OrderItem.objects.filter(order=orders)
     context={
     'orderitem':orderitem,
     'orders':orders,
-    'address':address
+    # 'address':address
     }
     return render(request,'Adminside/admin_view_order.html',context)
 

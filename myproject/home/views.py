@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from Accounts.views import home
-from products.views import cart
+from products.views import cart,Wallet
 from.models import profile
 from django.shortcuts import get_object_or_404
 from django.views import View
@@ -56,58 +56,60 @@ def signup(request):
     usr = None
     
     if request.method=='POST':
-                get_otp=request.POST.get('otp')
+            get_otp=request.POST.get('otp')
+            
+
+            if get_otp:
+              
+                get_usr=request.POST.get('usr')
+                
+                usr=User.objects.get(username=get_usr)
+                Wallet.objects.create(user=usr)
+                profile.objects.create(user=usr)
                 
 
-                if get_otp:
-                  
-                  get_usr=request.POST.get('usr')
-                  
-                  usr=User.objects.get(username=get_usr)
-                  
-
-                  if int(get_otp)==UserOTP.objects.filter(user=usr).last().otp:
-                    usr.is_active=True
-                    usr.save()
-                    messages.success(request,f'Account is created for{usr.username}')
-                    return redirect(Signin)
-                  else:
-                    messages.warning(request,f'You Entered a wrong OTP')
-                    return render(request,'signup.html',{'otp':True,'usr':usr})
-                                          
-                
-                
-                form = SignUpForm(request.POST)
-               
-                if form.is_valid():
-                 
-                 form.save()
-                 username=form.cleaned_data.get('username')
-                 
-                 name=form.cleaned_data.get('name')
-                 usr=User.objects.get(username=username)
-                 usr.email=username
-                 usr.username=username
-                 if len(name)>1:
-                   usr.last_name=name[1]
-                 usr.is_active=False
-                 usr.save()
-                 usr_otp=random.randint(100000,999999)
-                 UserOTP.objects.create(user=usr,otp=usr_otp)
-
-                 mess=f'Hello\t{usr.username},\nYour OTP is {usr_otp}\nThanks!'
-
-                 send_mail(
-                    "welcome to Mina's outfits-Verify your Email",
-                    mess,
-                    settings.EMAIL_HOST_USER,
-                    [usr.email],
-                    fail_silently=False
-                    )
-                # print("OTP sent to:", usr.email)
-                 return render(request,'signup.html',{'otp':True,'usr':usr})
+                if int(get_otp)==UserOTP.objects.filter(user=usr).last().otp:
+                  usr.is_active=True
+                  usr.save()
+                  messages.success(request,f'Account is created for{usr.username}')
+                  return redirect(Signin)
                 else:
-                        print(form.errors)
+                  messages.warning(request,f'You Entered a wrong OTP')
+                  return render(request,'signup.html',{'otp':True,'usr':usr})
+                                      
+            
+            
+            form = SignUpForm(request.POST)
+            
+            if form.is_valid():
+              
+              form.save()
+              username=form.cleaned_data.get('username')
+              
+              name=form.cleaned_data.get('name')
+              usr=User.objects.get(username=username)
+              usr.email=username
+              usr.username=username
+              if len(name)>1:
+                usr.last_name=name[1]
+              usr.is_active=False
+              usr.save()
+              usr_otp=random.randint(100000,999999)
+              UserOTP.objects.create(user=usr,otp=usr_otp)
+
+              mess=f'Hello\t{usr.username},\nYour OTP is {usr_otp}\nThanks!'
+
+              send_mail(
+                "welcome to Mina's outfits-Verify your Email",
+                mess,
+                settings.EMAIL_HOST_USER,
+                [usr.email],
+                fail_silently=False
+                )
+            # print("OTP sent to:", usr.email)
+              return render(request,'signup.html',{'otp':True,'usr':usr})
+            else:
+                    print(form.errors)
     else:
             form=SignUpForm()
     return render(request,'signup.html',{'form':form})

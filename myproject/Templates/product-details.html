@@ -1,144 +1,17 @@
 {% extends 'base.html' %}
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ashion Template">
-    <meta name="keywords" content="Ashion, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static '/css/style.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/elegant-icons.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/font-awesome.min.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/jquery-ui.min.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/magnific-popup.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/owl.carousel.min.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/slicknav.min.css'%}"  type="text/css">
-    <link rel="stylesheet" href="{% static '/css/sass.css'%}"  type="text/css">
-
-    
-</head>
-
-<body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="offcanvas__close">+</div>
-        <ul class="offcanvas__widget">
-            <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
-        </ul>
-        <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
-        </div>
-        <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
-        </div>
-    </div>
-    <!-- Offcanvas Menu End -->
-
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li class="active"><a href="./shop.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
-                        </div>
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
-
-    <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="#">Women’s </a>
-                        <span>Essential structured blazer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb End --> {% endcomment %}
+{% load static %}
+   
 {% block content %}
+
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-12">
                     <div class="product__details__pic">
                         <div class="product__details__pic__left product__thumb nice-scroll">
                             <a class="pt active" href="#product-1">
-                                <img src="{{products.product_image.url}}" alt="">
+                                <img class="big_img" src="{{products.product_image.url}}" alt="">
                             </a>
                             <a class="pt" href="#product-2">
                                 <img src="img/product/details/thumb-2.jpg" alt="">
@@ -150,9 +23,9 @@
                                 <img src="img/product/details/thumb-4.jpg" alt="">
                             </a>
                         </div>
-                        <div class="product__details__slider__content">
-                            <div class="product__details__pic__slider owl-carousel">
-                                <img data-hash="product-1" class="product__big__img" src="{{products.product_image.url}}" alt="">
+                        <div class="product__details__slider__content   ">
+                            <div class="product__details__pic__slider owl-carousel ">
+                                <img data-hash="product-1" class=" image-fluid " style="width:50% height: auto;" src="{{products.product_image.url}}" alt="">
                                 <img data-hash="product-2" class="product__big__img" src="img/product/details/product-3.jpg" alt="">
                                 <img data-hash="product-3" class="product__big__img" src="img/product/details/product-2.jpg" alt="">
                                 <img data-hash="product-4" class="product__big__img" src="img/product/details/product-4.jpg" alt="">
@@ -161,9 +34,9 @@
                     </div>
                 </div>
               
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-12">
                     <div class="product__details__text">
-                        <h3>{{products.title}} <span>Brand: SKMEIMore Men Watches from SKMEI</span></h3>
+                        <h3>{{products.title}} <span>{{products.discription}}</span></h3>
                         <div class="rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -176,12 +49,7 @@
                         <div class="product__details__price">Rs.{{products.discount_price}}/- <span>Rs.{{products.selling_price}}/-</span></div>
                         <p>{{products.description}}</p>
                         <div class="product__details__button">
-                            <div class="quantity">
-                                <span>Quantity</span>
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </div>
+                         
                             <div>
                               
                                 <div>
@@ -195,21 +63,12 @@
                                 </div>
                                       <ul>
                                 <li><a href="{% url 'wishlist' pk %}"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                               
                             </ul>
                         </div>
                         <div class="product__details__widget">
                             <ul>
-                                <li>
-                                    <span>Availability:</span>
-                                    <div class="stock__checkbox">
-                                        <label for="stockin">
-                                            In Stock
-                                            <input type="checkbox" id="stockin">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
+                              
                                 <li>
                                    
                                     <span>Available color:</span>
@@ -234,10 +93,7 @@
                                     <span>Available size:</span>
                                     {% for variation in products.variation_set.sizes %}
                                     <div class="size__btn">
-                                        {% comment %} <label for="xs-btn" class="active">
-                                            <input type="radio" id="xs-btn">
-                                            xs
-                                        </label> {% endcomment %}
+                                      
                                      
                                         <label for="{{ variation.variation_value }}">
                                             <input type="radio" id="{{ variation.variation_value |capfirst }}" name="size" value="{{ variation.variation_value}}">
@@ -271,103 +127,56 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 text-center">
+                <div class="col-lg-12  col-12 text-center">
                     <div class="related__title">
                         <h5>RELATED PRODUCTS</h5>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-1.jpg">
-                            <div class="label new">New</div>
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
+               
+                            
                         </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Buttons tweed blazer</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
+                  
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-2.jpg">
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Flowy striped skirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                <div class='container'>
+                <div class="col-lg-9 col-md-9 col-12">
+                    <div class="row">
+                        {% for product in related_products %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg  " style="width:200px ;" data-setbg="{{ product.product_image.url }}" >
+                                    <div class="label new">New</div>
+                                    <ul class="product__hover">
+                                        <li><a href="{% url 'product-details' product.id %}"><span class="fa fa-eye"></span></a></li>
+                                        <li><a href="{% url 'wishlist' product.id %}"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href=""><span class="icon_bag_alt"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#">{{product.title}}</a></h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="product__price">Rs{{product.discount_price}}</div>
+                                </div>
                             </div>
-                            <div class="product__price">$ 49.0</div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-3.jpg">
-                            <div class="label stockout">out of stock</div>
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Cotton T-Shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-4.jpg">
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Slim striped pocket shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
+                        {% if forloop.counter|divisibleby:3 %}
+                    </div><div class="row">
+                {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
+                
+                  
+               
+                   
+     
     </section>
     <!-- Product Details Section End -->
 
@@ -375,7 +184,7 @@
     <div class="instagram">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                <div class="col-lg-2 col-md-4 col-sm-4 col-12 p-0">
                     <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
@@ -426,5 +235,16 @@
             </div>
         </div>
     </div>
+    {% comment %} <script type="text/javascript">
+        $(document).ready(function () {
+          $(".big_img").imagezoomsl({
+              zoomrange:[3,3]
+          })
+           
+          })
+     
+    
+      </script> {% endcomment %}
+    
     {% endblock content %}
     <!-- Instagram End -->

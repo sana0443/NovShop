@@ -21,20 +21,20 @@
               <hr />
               <label class="mt-2"> Name</label>
               <div class="border p-1">
-                {{address.name}} 
+                {{orders.name}} 
               </div>
 
               <label class="mt-2">Email</label>
-              <div class="border p-1">{{address.email}}</div>
+              <div class="border p-1">{{orders.email}}</div>
             
             
               <label class="mt-2">Delivery Address</label>
               <div class="border p-1">
-                {{order.address}} <br />
-                {{address.city}} <br />
-                {{address.state}} <br />
-                {{address.country}} <br />
-                Pin Code : {{address.postal_code}}
+                {{orders.address}} <br />
+                {{orders.city}} <br />
+                {{orders.state}} <br />
+                {{orders.country}} <br />
+                Pin Code : {{orders.postal_code}}
               </div>
             </div>
             <div class="col-md-6">
@@ -86,43 +86,43 @@
               <hr />
               <div>
                 <h5 class="d-flex align-end">
-                  Grand Total : ₹{{address.total_price}}
+                  Grand Total : ₹{{orders.total_price}}
                 </h5>
                 <br />
                
                   
-                {% if address.order_status == 'Cancelled' %}
+                {% if orders.order_status == 'Cancelled' %}
                 <h6>
                   Order Status:
-                  <span class="text-danger">{{address.order_status}}</span>
+                  <span class="text-danger">{{orders.order_status}}</span>
                 </h6>
                 <br />
-                {% elif address.order_status == 'Delivered' %}
+                {% elif orders.order_status == 'Delivered' %}
                 <h6>
                   Order Status:
-                  <span class="text-success">{{address.order_status}}</span>
+                  <span class="text-success">{{orders.order_status}}</span>
                 </h6>
                 <br />
-                {% elif address.order_status == 'Shipped' %}
+                {% elif orders.order_status == 'Shipped' %}
                 <h6>
                   Order Status:
-                  <span class="text-success">{{address.order_status}}</span>
+                  <span class="text-success">{{orders.order_status}}</span>
                 </h6>
                 <br />
-                {% elif address.order_status == 'Pending' %}
+                {% elif orders.order_status == 'Pending' %}
                 <h6>
                   Order Status:
-                  <span class="text-warning">{{address.order_status}}</span>
+                  <span class="text-warning">{{orders.order_status}}</span>
                 </h6>
                 <br />
-                {% elif address.order_status == 'Out for shipping' %}
+                {% elif orders.order_status == 'Out for shipping' %}
                 <h6>
                   Order Status:
-                  <span class="text-primary">{{address.order_status}}</span>
+                  <span class="text-primary">{{orders.order_status}}</span>
                 </h6>
                 <br />
                 {% endif %}
-                <h6>Tracking Number : {{address.tracking_number}}</h6>
+                <h6>Tracking Number : {{orders.tracking_number}}</h6>
                 <br />
               </div>
               {% if orders.order_status == 'Pending' %}
@@ -143,15 +143,7 @@
                   ><button class="btn btn-success">Delivered</button></a
                 >
               </div>
-              {% endif %} {% comment %} {% if order.status == 'Out For Shipping'
-              or order.status == 'Shipped' %}
-
-              <div class="d-flex justify-content-end my-2">
-                <a href="{% url 'manager_cancel_order' order.tracking_no %}"
-                  ><button class="btn btn-danger">Cancel Order</button></a
-                >
-              </div>
-              {% endif %} {% endcomment %}
+              {% endif %}
             </div>
           </div>
         </div>
