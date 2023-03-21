@@ -36,7 +36,7 @@
                 <input type="radio" name="ad" value="{{ i.name }}-{{ i.address }}-{{ i.city }}-{{ i.state }}-{{ i.zip_code }}-{{ i.country }}">
                 <div class="card-header">
                   <h5 class="card-title">{{ i.name }}</h5>
-                  <button class="btn btn-sm btn-outline-danger delete-address-btn" data-address-id="{{ address.id }}">Delete</button>
+                 {% comment %} <button class="btn btn-sm btn-outline-danger delete-address-btn" data-address-id="{{ address.id }}">Delete</button>  {% endcomment %}
                 </div>
                 <div class="card-body">
                   <p class="card-text">{{ i.address }}</p>
@@ -46,13 +46,17 @@
               </div>
               {% endfor %}
             </div>
+           
               <button class"btn btn-danger" type="submit">Choose</button> 
+            
+         
             </form>
+           
             </div>
+           
             {% comment %} {% endif %} {% endcomment %}
           </div>
-          
-         
+        
     <section class="checkout spad">
         <div class="container">
             <div class="row">

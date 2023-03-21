@@ -8,6 +8,9 @@ def dashboard(request):
     products=product.objects.all()
     countorder=orders.count()
     countusers=users.count()
+    cate=Category.objects.all()
+    cate_count=cate.count()
+
 
     countproducts=products.count()
 
@@ -15,6 +18,7 @@ def dashboard(request):
         "countorder":countorder,
         "countusers" :countusers,
         "countproducts" :countproducts,
+        'cate_count': cate_count
 
 
         

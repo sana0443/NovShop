@@ -32,7 +32,7 @@
         <div class="card shadow bg-dark">
             <div class="card-body">
                 <h4 class="text-light">Total Category</h4>
-                <h5 style="color : #F1948A">231</h5>
+                <h5 style="color : #F1948A">{{cate_count}}</h5>
             </div>
             <div class="card-footer">
                 <a href="" class="text-warning">View Details >></a>
@@ -58,32 +58,5 @@
 
 <canvas id="order-chart" width="400" height="400"></canvas>
 
-{% comment %} <script>
-var ctx = document.getElementById('order-chart').getContext('2d');
-var data = {
-    labels: {{ labels|safe }},
-    datasets: [{
-        label: 'Orders placed',
-        data: {{ data|safe }},
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1
-    }]
-};
-var options = {
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
-    }
-};
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: options
-});
-</script> {% endcomment %}
 
 {% endblock  %}

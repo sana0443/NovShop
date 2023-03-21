@@ -122,6 +122,26 @@
                         <a href="{% url 'place_order' %}" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
+                <div class="col-lg-4 offset-lg-2 col-12">
+                    <div class="cart__total__procced">
+                        <h6>Available Coupons</h6>
+                        <ul>
+                            {% for c in coupons %}
+                            <li>{{ c.code }} - {{ c.discount }}% off</li>
+                          
+                            {% endfor %}
+                          </ul>
+                        </div>
+                     
+                        </ul>
+                        
+                    </div>
+                </div>
+
+
+
+
+               
             </div>
         </div>
     </div>
