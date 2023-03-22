@@ -7,8 +7,8 @@
         <div class="alert alert-{{ message.tags }}" role="alert">
           {{ message }}
         </div> {% endcomment %}
-      {% endfor %}
-    {% endif %}
+      {% comment %} {% endfor %}
+    {% endif %} {% endcomment %}
     <h1>Order Cancelled</h1>
     <p>Your order has been cancelled and a refund of {{ refund_amount }} has been processed to your wallet.</p>
     <a href="{% url 'orders' %}" class="btn btn-primary">Back to Orders</a>

@@ -51,7 +51,7 @@
 <script>
   function confirmDelete(event) {
       event.preventDefault(); // prevent the link from redirecting immediately
-      alertify.confirm('Message', 'Are You Sure Want to Delete This', function(){
+      alertify.confirm('Message', 'Are You Sure to Cancel this Order!!', function(){
           window.location.href = event.target.href; // redirect to the delete URL
       }, function(){ 
           alertify.error('Cancel')
