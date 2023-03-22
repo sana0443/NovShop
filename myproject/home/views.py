@@ -38,6 +38,7 @@ def Signin(request):
             
             if user is not None:
                  login(request,user)
+                 messages.success(request,f'Welcome to SheHive, {user.username}')
                 
                  return redirect(home)
 
@@ -100,7 +101,7 @@ def signup(request):
               mess=f'Hello\t{usr.username},\nYour OTP is {usr_otp}\nThanks!'
 
               send_mail(
-                "welcome to Mina's outfits-Verify your Email",
+                "welcome to SheHive outfits-Verify your Email",
                 mess,
                 settings.EMAIL_HOST_USER,
                 [usr.email],
@@ -123,7 +124,7 @@ def resend_otp(request):
 			mess = f"Hello, {usr.first_name},\nYour OTP is {usr_otp}\nThanks!"
 
 			send_mail(
-				"Welcome to MINA's Beuty - Verify Your Email",
+				"Welcome to SheHive - Verify Your Email",
 				mess,
 				settings.EMAIL_HOST_USER,
 				[usr.email],
@@ -170,7 +171,7 @@ def login_view(request):
 			mess = f"Hello {usr.first_name},\nYour OTP is {usr_otp}\nThanks!"
 
 			send_mail(
-				"Welcome to Zena Beauty - Verify Your Email",
+				"Welcome to SheHive - Verify Your Email",
 				mess,
 				settings.EMAIL_HOST_USER,
 				[usr.email],

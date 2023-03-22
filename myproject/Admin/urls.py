@@ -28,6 +28,6 @@ path('order_shipped/<str:trackno>',views.order_shipped,name='order_shipped'),
 path('manage_user/',views.manage_user,name='manage_user'),
 path('ban_user/<int:user_id>',views.block_user,name='ban_user'),
 path('unban_user/<int:user_id>',views.unblock_user,name='unban_user'),
-
+path('admin_logout/',views.logoutadmin,name='admin_logout')
 # path('order_chart/', views.OrderChartView.as_view(), name='order_chart'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

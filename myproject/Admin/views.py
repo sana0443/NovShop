@@ -12,6 +12,7 @@ from django.db.models.functions import TruncMonth
 from datetime import timedelta, date
 from django.db.models import Count
 from django.db.models import Q
+from django.contrib.auth.models import auth
 
 
 
@@ -41,6 +42,10 @@ def adminHome(request):
 
 def admin_dashboard(request):
     return render(request, 'Adminside/admin_dsbd.html') 
+
+def logoutadmin(request):
+        auth.logout(request)
+        return render(request,'home.html')
 
 
 def add_category(request):
@@ -266,5 +271,9 @@ def unblock_user(request, user_id):
         user.save()
 
         return redirect('manage_user')
+
+
+def error(request,exception):
+    return render(request,'error.html')
 
    

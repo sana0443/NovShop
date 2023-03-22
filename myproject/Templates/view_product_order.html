@@ -45,8 +45,19 @@
   
 
   {% if orderitem %}
-  <a href="{% url 'cancel_order' ordernumber.tracking_number %}" class="btn btn-danger">Cancel Order</a>
+  <a href="{% url 'cancel_order' ordernumber.tracking_number %}" class="btn btn-danger" onclick="confirmDelete(event)">Cancel Order</a>
 {% endif %}
+
+<script>
+  function confirmDelete(event) {
+      event.preventDefault(); // prevent the link from redirecting immediately
+      alertify.confirm('Message', 'Are You Sure Want to Delete This', function(){
+          window.location.href = event.target.href; // redirect to the delete URL
+      }, function(){ 
+          alertify.error('Cancel')
+      });
+  }
+</script>
 
 
   {% endblock content %}

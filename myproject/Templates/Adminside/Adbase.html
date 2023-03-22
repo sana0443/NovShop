@@ -1,7 +1,7 @@
 {% load static %}
 <html lang="en">
 <head>
-    <title>Lush | Luxe</title>
+    <title>SheHive</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -30,8 +30,10 @@
                 <p class="text-muted mb-0">{{request.user.email}}</p>
             </div>
         </div>
-    </div>
+        <a class="dropdown-item  text-dark bg-light" href="{% url 'logout' %}">Logout</a>
 
+    </div>
+    
  
     <!--.flex-column to display the flex items vertically (on top of each other)-->
     <ul class="nav flex-column bg-white">
@@ -46,7 +48,7 @@
  
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
-                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i> MINA's Category
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i>  Category
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{%url 'add_category' %}">Add Category</a>

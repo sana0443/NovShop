@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views import View
 from home.models import profile
+# from home.views import Signin
 from.models import product,cart,Category,Order,Address,OrderItem,variation,Wishlist,coupen,Wallet,Refund
 from django.db.models import Count
 from django.db.models import Q
@@ -16,6 +17,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from home.models import User
 from django.utils import timezone
 import razorpay
+from django.contrib.auth.models import auth
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 
@@ -133,39 +135,37 @@ def add_to_cart(request, prod_id):
         return redirect('show-cart')
    
 
-
 def products(request,pid):
   
+    allcategory = Category.objects.all()
+
     if pid == 0:
         Product = product.objects.all()
-        paginator   = Paginator(Product, 4) 
-        page        = request.GET.get('page')
-        paged_users = paginator.get_page(page)
+       
     else:
-     category = Category.objects.get(id=pid)
- 
+        allcategory = Category.objects.all()
+        category = Category.objects.get(id=pid)
+        Product = product.objects.filter(category=category)
 
-     Product = product.objects.filter(category=category)
-   
-    allcategory = Category.objects.all()
-    context={
-        # 'Product':Product,
-        'allcategory':allcategory,
-        'paged_users' : paged_users,
-    
-            }
- 
-    return render(request, "shop.html", context)
+    paginator = Paginator(Product, 4) 
+    page = request.GET.get('page')
+    paged_users = paginator.get_page(page)
+
+    return render(request, "shop.html", locals())
+
 
 def search(request):
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
-             products = product.objects.order_by('id').filter(Q(discription__icontains=keyword) | Q(title__icontains=keyword))
-             product_count = products.count()
+             Product = product.objects.order_by('id').filter(Q(discription__icontains=keyword) | Q(title__icontains=keyword))
+             paginator = Paginator(Product, 4) 
+             page = request.GET.get('page')
+    
+             paged_users = paginator.get_page(page)
     context = {
-        'Product': products,
-        
+        'Product': Product,
+        'paged_users':paged_users
     }
     return render(request, 'shop.html', context)
 
@@ -639,3 +639,30 @@ def razor_pay(request):
 
         
     })
+
+
+
+
+def changepassword(request):
+    if request.method == 'POST':
+        oldpass = request.POST['currentpassword']
+        newpass = request.POST['newpassword']
+        confirm_newpass = request.POST['confirmpassword']
+        user = auth.authenticate(username=request.user.username, password=oldpass)
+        if user:
+            if oldpass == newpass:
+                messages.warning(request, 'oldpassword and new password should not be same')
+
+            elif newpass == confirm_newpass:
+                user.set_password(newpass)
+                user.save()
+                messages.success(request, "Password Changed")
+                return redirect('home')
+            else:
+                messages.success(request, "Password not matching")
+                return redirect(changepassword)
+        else:
+            messages.success(request, "Invalid Password")
+            return redirect(changepassword)
+        
+    return render(request, 'changepassword.html')

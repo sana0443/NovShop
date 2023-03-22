@@ -27,7 +27,8 @@ urlpatterns = [
      path('view_product_order/<str:trackno>',views.view_product_order,name='view_product_order'),
     path('cancel_order/<str:order_id>',views.cancel_order,name='cancel_order'),
     path('wallet_balance/', views.wallet_balance, name='wallet_balance'),
-    path('remove_wishlist/<int:pk>',views.remove_wishlist,name='remove_wishlist')
+    path('remove_wishlist/<int:pk>',views.remove_wishlist,name='remove_wishlist'),
+    path('changepassword/',views.changepassword,name='changepassword')
 
 
     
