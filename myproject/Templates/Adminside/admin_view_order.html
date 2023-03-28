@@ -109,13 +109,13 @@
                   <span class="text-success">{{orders.order_status}}</span>
                 </h6>
                 <br />
-                {% elif orders.order_status == 'Pending' %}
+                {% elif orders.order_status == 'Order confirmed' %}
                 <h6>
                   Order Status:
                   <span class="text-warning">{{orders.order_status}}</span>
                 </h6>
                 <br />
-                {% elif orders.order_status == 'Out for shipping' %}
+                {% elif orders.order_status == 'Out for Delivery' %}
                 <h6>
                   Order Status:
                   <span class="text-primary">{{orders.order_status}}</span>
@@ -125,13 +125,13 @@
                 <h6>Tracking Number : {{orders.tracking_number}}</h6>
                 <br />
               </div>
-              {% if orders.order_status == 'Pending' %}
+              {% if orders.order_status == 'Order confirmed' %}
               <div class="d-flex justify-content-end my-2">
                 <a href="{% url 'order_shipping' orders.tracking_number %}"
                   ><button class="btn btn-success">Accept order</button></a>
               </div>
 
-              {% elif orders.order_status == 'Out for shipping' %}
+              {% elif orders.order_status == 'Out for Delivery' %}
               <div class="d-flex justify-content-end my-2">
                 <a href="{% url 'order_shipped' orders.tracking_number %}"
                   ><button class="btn btn-primary">Shipped</button></a

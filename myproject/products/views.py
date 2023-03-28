@@ -174,13 +174,13 @@ def search(request):
 def show_cart(request):
 
     if request.user.is_authenticated:
-        
+        # del request.session['coupen_id']
         user = request.user
         items_in_cart = cart.objects.filter(user=user)
         amount = 0.0
         shipping_amount = 60.0
         total_amount = 0.0
-     
+        coupenamt= 0
         cart_product = [p for p in cart.objects.all() if p.user == user]
 
         if cart_product:
@@ -192,12 +192,35 @@ def show_cart(request):
         Coupon = None
         if coupen_id:
             Coupon=coupen.objects.get(id=coupen_id)
-            discount=int(amount)-int(Coupon.discount)
-            print(discount)
-            total_amount = discount + shipping_amount
+            print(Coupon,'-----------------------------copen code-----------------')
+            print(Coupon.code,'-----------------------------copen code-----------------')
+
+            cart.objects.filter(user=request.user).update(coupon=Coupon.code)
+            try:
+                check=Order.objects.get(user=user,coupon=Coupon.code)
+                print(check,'---------------------try check--------------------------')
+            except:
+                check=None
+                print(check,'-------------------check except--------------------')
+            if check is not None :
+                messages.info(request,'The coupon is already used')
+                discount=0
+                coupenamt = 0
+                total_amount = amount + shipping_amount
+
+            else:
+                print(check,'-------------------check else--------------------')
+
+                messages.info(request,'Coupon added successfully')
+                discount=int(amount)-int(Coupon.discount)
+                print(discount)
+                total_amount = discount + shipping_amount
+                coupenamt = Coupon.discount
+                print(coupenamt,'------------------couenadkadkaa-----------------------')
         else:
             discount=0
             total_amount = amount + shipping_amount
+            coupenamt=0
 
         
 
@@ -216,7 +239,8 @@ def show_cart(request):
             'total_amount': total_amount,
             'amount': amount,
             'coupons':coupons,
-            'Coupen' :Coupon,
+            'coupen' :coupenamt,
+         
         }
   
     
@@ -336,6 +360,8 @@ def place_order(request):
             new_order.payment_id = request.POST.get('payment_id')
             new_order.wallet_amt=request.POST.get('wallet_balance')
             new_order.total_price = grand_total
+            code = cart.objects.get(user=current_user)
+            new_order.coupon=code.coupon
 
             trackno = 'MINAs' + str(random.randint(1111111, 9999999))
             new_order.tracking_number = trackno
@@ -360,7 +386,8 @@ def place_order(request):
             
             cart.objects.filter(user=request.user).delete()
 
-
+            if 'coupen_id' in request.session:
+                del request.session['coupen_id']
             messages.success(request,"Your order has been placed successfully")
             pay_mode=request.POST.get('payment_mode')
             if (pay_mode=="Payment with Razorpay"):
@@ -413,12 +440,12 @@ def product_filter(request) :
     max_price = maxprice[1]
     print(min_price)
     print(max_price)
-    Product= product.objects.all()
+    paged_users= product.objects.all()
     if min_price and max_price :
-        Product =product.objects.filter(discount_price__lte=max_price) 
+        paged_users =product.objects.filter(discount_price__lte=max_price) 
 
     context = {
-        'Product': Product,
+        'paged_users': paged_users,
         'min_price': product.objects.all().order_by('discount_price').first().discount_price,
         'max_price': product.objects.all().order_by('-discount_price').first().discount_price,
         'current_min_price': product.objects.all().order_by('discount_price').first().discount_price,
@@ -577,7 +604,7 @@ def cancel_order(request, order_id):
 
         wallet = Wallet.objects.get(user=request.user)
         
-        refunds = totals
+        refunds = float(totals)-float(amounts)
         wallet.balance = refunds
         wallet.save()
  
@@ -597,9 +624,11 @@ def cancel_order(request, order_id):
      # Update the order status to "Cancelled"
     order.order_status = 'Cancelled'
     order.save()
+    
+    walletss= str(wallets)
 
-    messages.success(request, "Order cancelled successfully. Refund of {} has been processed to your wallet.".format(refund_amount))
-    return render(request, 'cancel_order.html', {'refund_amount': refund_amount,'order':order})
+    messages.success(request, "Order cancelled successfully. Refund of " + walletss +  " has been processed to your wallet.".format(walletss))
+    return render(request, 'cancel_order.html', {'refund_amount': refund_amount, 'wallets':wallets ,'order':order})
 
 
 

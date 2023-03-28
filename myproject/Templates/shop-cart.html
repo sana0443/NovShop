@@ -111,12 +111,18 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="col-lg-4 offset-lg-2 col-12">
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
                             <li>Shipping amount <span>60</span></li>
-                            <li>Discount <span>{{Coupen.discount}}</span></li>
+                            {% if coupen == 0 %}
+                            <li>Discount <span>0.00</span></li>
+                            {% else %}
+                            <li>Discount <span>{{coupen}}</span></li>
+
+                            {% endif %}
                             <li>Total <span>{{total_amount}}</span></li>
                         </ul>
                         <a href="{% url 'place_order' %}" class="primary-btn">Proceed to checkout</a>

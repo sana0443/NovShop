@@ -204,7 +204,7 @@ def admin_view_order(request,trackno):
 def order_shipping(request,trackno):
     
     order = Order.objects.get(tracking_number=trackno)
-    order.order_status = 'Out for shipping'
+    order.order_status = 'Out for Delivery'
     order.save()
     return redirect('order_manage')
 

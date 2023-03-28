@@ -61,7 +61,8 @@ class cart(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE) 
     product=models.ForeignKey(product,on_delete=models.CASCADE)
     quantity=models.PositiveBigIntegerField(default=1)
-    variations=models.ManyToManyField(variation)  
+    variations=models.ManyToManyField(variation) 
+    coupon=models.CharField(max_length=100) 
 
     @property  
     def total_cost(self):
@@ -103,19 +104,20 @@ class Order(models.Model):
     payment_id=models.CharField(max_length=50,null=True)
     
     order_statuses =(
-        ('Pending','Pending'),
-        ('Out for shipping','Out for shipping'),
-         ('Shipped','Shipped'),
+        ('Order confirmed','Order confirmed'),
+        ('Shipped','Shipped'),
+        ('Out for Delivery','Out for Delivery'),
         ('Delivered','Delivered'),
         ('Cancelled','Cancelled')
 
     )
-    order_status=models.CharField(max_length=50,choices=order_statuses,default='Pending')
+    order_status=models.CharField(max_length=50,choices=order_statuses,default='Order confirmed')
     message=models.TextField(null=True)
     tracking_number=models.CharField(max_length=50,null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated=models.DateTimeField(auto_now_add=True)
     wallet_amt=models.FloatField(null=True,default=0)
+    coupon = models.CharField(max_length=100,default=0)
 
     def __str__(self):
         return f"{self.tracking_number}"

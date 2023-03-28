@@ -10,7 +10,7 @@
       {% comment %} {% endfor %}
     {% endif %} {% endcomment %}
     <h1>Order Cancelled</h1>
-    <p>Your order has been cancelled and a refund of {{ refund_amount }} has been processed to your wallet.</p>
+    <p>Your order has been cancelled and a refund of {{ wa }} has been processed to your wallet.</p>
     <a href="{% url 'orders' %}" class="btn btn-primary">Back to Orders</a>
   </div>
 {% endblock %}

@@ -50,7 +50,7 @@
                                 <td>₹ {{ item.total_price }}</td>
                                 {% if item.order_status == 'Cancelled' %}
                                 <td class="text-danger"><b>{{ item.order_status }}</b></td>
-                                {% elif item.order_status == 'Pending' %}
+                                {% elif item.order_status == 'Order confirmed' %}
                                 <td class="text-warning"><b>{{ item.order_status }}</b></td>
                                 {% else %}
                                 <td class="text-success fw-bold">
