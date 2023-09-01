@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+import dj_database_url
+
+# Initialize environ
+env = environ.Env()
+
+# Read environment variables from .env file
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,28 +99,30 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mina',
+        'USER': 'postgres',
+        'PASSWORD': '4444',
+        'HOST': 'localhost',
+
+    }
+}
+
+
 # DATABASES = {
-#     'default': {
+#      'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mina',
-#         'USER': 'postgres',
-#         'PASSWORD': '4444',
-#         'HOST': 'localhost',
+#         'NAME': 'shehive',
+#         'USER': 'sana',
+#         'PASSWORD': '7z6DrvS6TjZkw86mQtZRsWeT8sGyp7y9',
+#         'HOST': 'dpg-cjop4g61208c73eo17b0-a',
 
 #     }
 # }
 
-
-DATABASES = {
-     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shehive',
-        'USER': 'sana',
-        'PASSWORD': '7z6DrvS6TjZkw86mQtZRsWeT8sGyp7y9',
-        'HOST': 'dpg-cjop4g61208c73eo17b0-a',
-
-    }
-}
+DATABASES = {"default": dj_database_url.parse(env("RENDER_POSTGRES_EXTERNAL_URL"))}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
