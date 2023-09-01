@@ -1,18 +1,18 @@
 from django.shortcuts import render
 from products.models import Category,coupen
 
-# Create your views here.
+
 
 def home(request):
     
         
-        category = Category.objects.all()
-        coupons = coupen.objects.filter(active=True)
+        # category = Category.objects.all()
+        # coupons = coupen.objects.filter(active=True)
        
-        context = {'coupons': coupons,
-                'category':category,
-                }
-
+        # context = {'coupons': coupons,
+        #         'category':category,
+        #         }
+        pass
     
     
-        return render(request,'index.html',context)
+        return render(request,'index.html')
