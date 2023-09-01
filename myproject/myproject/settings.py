@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mina',
+        'NAME': 'shehive',
         'USER': 'sana',
         'PASSWORD': '7z6DrvS6TjZkw86mQtZRsWeT8sGyp7y9',
         'HOST': 'dpg-cjop4g61208c73eo17b0-a',
