@@ -7,9 +7,8 @@ def home(request):
     
         
         category = Category.objects.all()
-        coupons = coupen.objects.filter(active=False)
-        print('ggggggggggggggg')
-        print(coupons)
+        coupons = coupen.objects.filter()
+       
         context = {'coupons': coupons,
                 'category':category,
                 }
