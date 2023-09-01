@@ -9,8 +9,8 @@ def counts(request):
         wishlists=Wishlist.objects.filter(user=request.user)
         wishlist_count=wishlists.count()
 
-        order=OrderItem.objects.filter(user=request.user)
-        orderitem_count=order.count()
+        # order=OrderItem.objects.filter(user=request.user)
+        # orderitem_count=order.count()
 
     
 
@@ -20,12 +20,12 @@ def counts(request):
 
         wishlist_count=0
         cart_count=0
-        orderitem_count=0
+        # orderitem_count=0
 
     contxt={
         'wishlist_count':wishlist_count,
         'cart_count':cart_count,
-        'orderitem_count':orderitem_count,
+        # 'orderitem_count':orderitem_count,
        
     }
 

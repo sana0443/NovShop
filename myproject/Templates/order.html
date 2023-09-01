@@ -25,7 +25,8 @@
                 <img src="{{Profile.image.url}}" class="img-fluid rounded-circle mb-3" style="max-width: 100px" alt="{{Profile.name}}">
                 {% endif %}
                 <h5 class="card-title">{{Profile.name}}</h5>
-                <p class="card-text mb-2">order items count : {{orderitem_count}}</p>
+                <p class="card-text mb-2">order items count :</p>
+                {% comment %} {{orderitem_count}} {% endcomment %}
             </div>
         </div>
         <div class="card shadow">
