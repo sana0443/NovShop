@@ -91,28 +91,28 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mina',
-        'USER': 'postgres',
-        'PASSWORD': '4444',
-        'HOST': 'localhost',
-
-    }
-}
-
-
 # DATABASES = {
-#      'default': {
+#     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'shehive',
-#         'USER': 'sana',
-#         'PASSWORD': '7z6DrvS6TjZkw86mQtZRsWeT8sGyp7y9',
-#         'HOST': 'dpg-cjop4g61208c73eo17b0-a',
+#         'NAME': 'mina',
+#         'USER': 'postgres',
+#         'PASSWORD': '4444',
+#         'HOST': 'localhost',
 
 #     }
 # }
+
+
+DATABASES = {
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'shehive',
+        'USER': 'sana',
+        'PASSWORD': '7z6DrvS6TjZkw86mQtZRsWeT8sGyp7y9',
+        'HOST': 'dpg-cjop4g61208c73eo17b0-a',
+
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
