@@ -3,10 +3,10 @@ from products.models import Category,product,Order,OrderItem,Address
 from django.contrib.auth.models import User
 
 def dashboard(request):
-    orders=Order.objects.all()
+    # orders=Order.objects.all()
     users=User.objects.all()
     products=product.objects.all()
-    countorder=orders.count()
+    # countorder=orders.count()
     countusers=users.count()
     cate=Category.objects.all()
     cate_count=cate.count()
@@ -15,7 +15,7 @@ def dashboard(request):
     countproducts=products.count()
 
     context={
-        "countorder":countorder,
+        # "countorder":countorder,
         "countusers" :countusers,
         "countproducts" :countproducts,
         'cate_count': cate_count
