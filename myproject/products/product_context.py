@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from products.models import Category, Product, Order, OrderItem, Address, Wishlist, Cart
+from products.models import Category, product, Order, OrderItem, Address, Wishlist, cart
 from django.contrib.auth.models import User
 from django.db.utils import ProgrammingError  # Import the exception
 
@@ -17,7 +17,7 @@ def counts(request):
             order = OrderItem.objects.filter(user=request.user)
             orderitem_count = order.count()
 
-            Cart = Cart.objects.filter(user=request.user)
+            Cart = cart.objects.filter(user=request.user)
             cart_count = Cart.count()
     except ProgrammingError as e:
         # Handle the exception gracefully (e.g., log the error)
