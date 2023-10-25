@@ -119,7 +119,6 @@ def products(request,pid):
 def show_cart(request):
 
     if request.user.is_authenticated:
-        # del request.session['coupen_id']
         user = request.user
         items_in_cart = cart.objects.filter(user=user)
         amount = 0.0
@@ -133,15 +132,7 @@ def show_cart(request):
             tempamount = (p.quantity * p.product.discount_price)
             amount += tempamount
        
-        #     else:
-        #         print(check,'-------------------check else--------------------')
-
-        #         messages.info(request,'Coupon added successfully')
-        #         discount=int(amount)-int(Coupon.discount)
-        #         print(discount)
-        #         total_amount = discount + shipping_amount
-        #         coupenamt = Coupon.discount
-        #         print(coupenamt,'------------------couenadkadkaa-----------------------')
+   
        
             discount=0
             total_amount = amount + shipping_amount
@@ -163,7 +154,6 @@ def show_cart(request):
             'items_in_cart': items_in_cart,
             'total_amount': total_amount,
             'amount': amount,
-            # 'coupons':coupons,
             'coupen' :coupenamt,
          
         }
@@ -206,133 +196,6 @@ def place_order(request):
  
    
 
-    # Fetch user's address details
-    # address = Address.objects.filter(user=request.user)
-    # wallet_balance = Wallet.objects.get(user=request.user)
-    # wallet_balanced = wallet_balance.balance
-    # if wallet_balanced >= grand_total:
-    #     pay=0
-    # else:
-    #     pay=grand_total-wallet_balanced
-    # # Handle form submission
-    # if request.method == 'POST':
-    #     # Handle address form submission
-    #     if request.POST.get('form_type') == 'form2':
-    #         check = request.POST['ad']
-    #         print(check)
-    #         check = check.split('-')
-    #         print(check)
-    #         name = check[0]
-    #         address1 = check[1]
-    #         city = check[2]
-    #         state = check[3]
-    #         post_code = check[4]
-    #         country = check[5]
-
-    #     else:
-            
-    #         new_order = Order()
-    #         Name = request.POST.get('Name')
-    #         Email = request.POST.get('email')
-    #         Add = request.POST.get('address')
-    #         City = request.POST.get('city')
-    #         State = request.POST.get('state')
-    #         Country = request.POST.get('country')
-    #         PostCode= request.POST.get('post_code')
-    #         try :
-    #             value = Address.objects.get(name=Name,address=Add)
-
-    #         except : 
-    #             value = None
-            
-          
-         
-    #         if value is None:
-             
-    #             Address.objects.create(
-    #             user = current_user,
-    #             name = Name,
-    #             address = Add,
-    #             city = City,
-    #             state = State,
-    #             country = Country,
-    #             email = Email,
-    #             postal_code = PostCode
-    #             )
-    #         else :
-          
-
-    #             pass
-    #         new_order.user = current_user
-    #         new_order.name = Name
-    #         new_order.email = Email
-    #         new_order.address = Add
-    #         new_order.city = City
-    #         new_order.state = State
-    #         new_order.country = Country
-    #         new_order.postal_code = PostCode
-    #         new_order.payment_mode = request.POST.get('payment_mode')
-    #         new_order.payment_id = request.POST.get('payment_id')
-    #         new_order.wallet_amt=request.POST.get('wallet_balance')
-    #         new_order.total_price = grand_total
-    #         code = cart.objects.get(user=current_user)
-    #         new_order.coupon=code.coupon
-
-    #         trackno = 'MINAs' + str(random.randint(1111111, 9999999))
-    #         new_order.tracking_number = trackno
-    #         new_order.save()
-
-    #         # Create order items and update product stock
-    #         new_order_items = cart.objects.filter(user=current_user)
-    #         for item in new_order_items:
-    #             OrderItem.objects.create(
-    #                 user = current_user,
-    #                 order=new_order,
-    #                 product=item.product,
-    #                 price=item.product.discount_price,
-    #                 quantity=item.quantity
-    #             )
-    #             # Decrease the product from available stock
-    #             order_product = product.objects.filter(id=item.product_id).first()
-    #             order_product.quantity = order_product.quantity - item.quantity
-    #             order_product.save()
-
-            
-            
-    #         cart.objects.filter(user=request.user).delete()
-
-    #         if 'coupen_id' in request.session:
-    #             del request.session['coupen_id']
-    #         messages.success(request,"Your order has been placed successfully")
-    #         pay_mode=request.POST.get('payment_mode')
-    #         if (pay_mode=="Payment with Razorpay"):
-    #             return JsonResponse({'status':"Your order has been placed successfully"})
-    #         else :
-    #             return JsonResponse({'status':"Your order has been placed successfully"})
-
-      
-         
-
-    # Prepare context for rendering template
-    # instance_value = {
-    #     'cartitems': cartitems,
-    #     'grand_total': grand_total,
-    #     'shipping_amt': shipping_amt,
-    #     'sub_total': sub_total,
-    #     'total': total,
-    #     'quantity': quantity,
-    #     # 'address': address,
-    #     'name': name,
-    #     'address1': address1,
-    #     'city': city,
-    #     'state': state,
-    #     'post_code': post_code,
-    #     'country': country,
-    #     # 'wallet_balanced': wallet_balanced,
-    #     # 'pay':pay 
-       
-    # }
-    # return render(request, 'checkout.html', instance_value)
 
 
 def view_product(request):
