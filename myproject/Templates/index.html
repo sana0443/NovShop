@@ -5,94 +5,13 @@
     <!-- Categories Section Begin -->
     {% block content %}
   
-    <section class="categories">
-        <div class="container-fluid" style='overflow:hidden;'>
-            <div class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="categories__item categories__large__item set-bg"
-                    data-setbg="{% static 'img/categories/western.webp' %}">
-                    <div class="categories__text">
-                        <h1>Women's fashion</h1>
-                        <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore
-                        edolore magna aliquapendisse ultrices gravida.</p>
-                        <a href="#">Shop now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/categories/jump.webp'%}">
-                            <div class="categories__text">
-                                <a href="">
-                                <h4>casual</h4>
-                                <p>358 items</p>
-                                <a href="">Shop now</a>
-                            </div>
-                        </a>
-                        </div>
-                    </div>
-               
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/instagram/peech.jpg'%}">
-                            <div class="categories__text">
-                                <a href="">
-                                <h4>Wedding wears</h4>
-                                <p>273 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/categories/fprmal.jpg'%}">
-                            <div class="categories__text">
-                                <a href="">
-                                <h4>Formal wears</h4>
-                                <p>159 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/categories/green net.webp'%}">
-                            <div class="categories__text">
-                                
-                                <a href="">
-                                <h4>Party wears</h4>
-                                <p>792 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-</div>
+
+
 <!-- Categories Section End -->
 
 <!-- Product Section Begin -->
 <section class="product spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-4">
-                <div class="section-title">
-                    <h4>New product</h4>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8">
-                <ul class="filter__controls">
-                    <li class="active" data-filter="{% url 'products' 0 %}">All</li>
-                    {% comment %} <li data-filter=".women">Women's</li>
-                    <li data-filter=".men">Men's</li>
-                    <li data-filter=".kid">Kid's</li>
-                    <li data-filter=".accessories">Accessories</li>
-                    <li data-filter=".cosmetic">Cosmetics</li> {% endcomment %}
-                </ul>
-            </div>
-        </div>
+  
         {% if Product %}
         {% for j in Product %}
         <div class="row property__gallery">
@@ -140,27 +59,15 @@
           <div class="banner__slider owl-carousel">
             <div class="banner__item">
               <div class="banner__text">
-                <h1>Available Coupons</h1>
-                {% if coupons %}
-                  <div class="coupon-banner">
-                    <h2>Save Big with Our Coupons!</h2>
-                    <ul>
-                      {% for c in coupons %}
-                      <li>{{ c.code }} - {{ c.discount }}% off</li>
-                      <a href="{% url 'products' 0 %}">Shop now</a>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                {% else %}
-                  <p>No coupons available at the moment.</p>
-                {% endif %}
+                <h1>Explore The NovShop</h1>
+                <a href="{% url 'products' 0 %}">Shop now</a>
               </div>
             </div>
             <div class="banner__item">
               <div class="banner__text">
                 <span>The Chloe Collection</span>
-                <h1>The Project Jacket</h1>
-                <a href="#">Shop now</a>
+                <h1>Trendings</h1>
+                <a href="{% url 'products' 0 %}">Shop now</a>
               </div>
             </div>
           </div>
@@ -169,150 +76,10 @@
     </div>
   </section>
   
-<!-- Banner Section End -->
 
-<!-- Trend Section Begin -->
 
-<!-- Trend Section End -->
 
-<!-- Discount Section Begin -->
-{% comment %} <section class="discount">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 p-0">
-                <div class="discount__pic">
-                    <img src="{% static 'img/discount.jpg'%}" style="width : 100%" alt="">
-                </div>
-            </div>
-            <div class="col-lg-6 p-0 col-12">
-                <div class="discount__text">
-                    <div class="discount__text__title">
 
-                  
-                        <span>Discount</span>
-                        <h2>Summer 2019</h2>
-                        <h5><span>Sale</span> 50%</h5>
-                    </div>
-                    <div class="discount__countdown" id="countdown-time">
-                        <div class="countdown__item">
-                            <span>22</span>
-                            <p>Days</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>18</span>
-                            <p>Hour</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>46</span>
-                            <p>Min</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>05</span>
-                            <p>Sec</p>
-                        </div>
-                    </div>
-                    <a href="#">Shop now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> {% endcomment %}
-<!-- Discount Section End -->
-
-<!-- Services Section Begin -->
-
-<section class="services spad">
-    <div class="container p-0 overflow:hidden">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-car"></i>
-                    <h6>Free Shipping</h6>
-                    <p>For all oder over 60</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-money"></i>
-                    <h6>Money Back Guarantee</h6>
-                    <p>If good have Problems</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-support"></i>
-                    <h6>Online Support 24/7</h6>
-                    <p>Dedicated support</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-headphones"></i>
-                    <h6>Payment Secure</h6>
-                    <p>100% secure payment</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Services Section End -->
-
-<!-- Instagram Begin -->
- 
-<div class="instagram">
-    <div class="container-fluid px-0 overflow-x-auto">
-        <div class="row">
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="{% static 'img/instagram/insta-1.jpg'%}">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@MINA's</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="{% static 'img/instagram/insta-2.jpg'%}">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ MINA's </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="{% static 'img/instagram/insta-3.jpg'%}">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ MINA's</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="{% static 'img/instagram/insta-4.jpg'%}">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ MINA's</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="{% static 'img/instagram/insta-5.jpg'%}">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ MINA's</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="{% static 'img/instagram/insta-6.jpg'%}">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ MINA's</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 {% endblock content %}
 <!-- Instagram End -->
