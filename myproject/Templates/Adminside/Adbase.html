@@ -19,10 +19,10 @@
 <div class="vertical-nav bg-white" id="sidebar">
     <div class="py-4 px-3 mb-1 bg-light">
        
-        <p class="font-weight-bold text-uppercase px-3 small dashboard-text text-center">Lush | Luxe</p>
+        <p class="font-weight-bold text-uppercase px-3 small dashboard-text text-center">NovShop</p>
         <div class="media d-flex align-items-center">
-            <img src="{% static 'img/discount.jpg' %}" width="80" height="80"
-                 class="mr-3 rounded-circle img-thumbnail shadow-sm">
+            {% comment %} <img src="{% static 'img/discount.jpg' %}" width="80" height="80"
+                 class="mr-3 rounded-circle img-thumbnail shadow-sm"> {% endcomment %}
             <div class="media-body">
                 <h4 class="mb-0">Admin</h4>
                 <p class="text-muted mb-0">{{request.user.email}}</p>
@@ -68,12 +68,6 @@
     <a href="" title="logout" class="float-right text-white"><i class="fas fa-sign-out-alt fa-2x"></i></a>
 
  
-    <!--toggle btn-->
-    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">
-        <i class="fas fa-bars mr-2"></i>
-        <small class="text-uppercase font-weight-bold">Toggle</small>
-    </button>
-    <!--end toggle btn-->
     
 
  
