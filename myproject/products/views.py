@@ -132,27 +132,7 @@ def show_cart(request):
          for p in cart_product:
             tempamount = (p.quantity * p.product.discount_price)
             amount += tempamount
-        # coupons = coupen.objects.filter(active=True)
-        # coupen_id=request.session.get('coupen_id')
-        # Coupon = None
-        # if coupen_id:
-        #     Coupon=coupen.objects.get(id=coupen_id)
-        #     print(Coupon,'-----------------------------copen code-----------------')
-        #     print(Coupon.code,'-----------------------------copen code-----------------')
-
-        #     cart.objects.filter(user=request.user).update(coupon=Coupon.code)
-        #     try:
-        #         check=Order.objects.get(user=user,coupon=Coupon.code)
-        #         print(check,'---------------------try check--------------------------')
-        #     except:
-        #         check=None
-        #         print(check,'-------------------check except--------------------')
-        #     if check is not None :
-        #         messages.info(request,'The coupon is already used')
-        #         discount=0
-        #         coupenamt = 0
-        #         total_amount = amount + shipping_amount
-
+       
         #     else:
         #         print(check,'-------------------check else--------------------')
 

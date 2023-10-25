@@ -18,9 +18,7 @@
 <!--vertical navbar start-->
 <div class="vertical-nav bg-white" id="sidebar">
     <div class="py-4 px-3 mb-1 bg-light">
-        <!--align media objects (like images or videos) together with content
-        To create a flexbox container and to transform direct children into flex items, use the d-flex class
-        -->
+       
         <p class="font-weight-bold text-uppercase px-3 small dashboard-text text-center">Lush | Luxe</p>
         <div class="media d-flex align-items-center">
             <img src="{% static 'img/discount.jpg' %}" width="80" height="80"
@@ -37,14 +35,7 @@
  
     <!--.flex-column to display the flex items vertically (on top of each other)-->
     <ul class="nav flex-column bg-white">
-        {% comment %} <li class="nav-item">
-            <a href="{% url 'admin_dsbd' %}" class="nav-link text-dark bg-light">
-                <i class="fas fa-tachometer-alt fa-fw mr-3 text-primary"></i>
-                Dashboard
-            </a>
-        </li> {% endcomment %}
-        <!--fa-fw class is used to set icons at a fixed width. This class is useful when different icon widths throw off alignment-->
-
+      
  
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">

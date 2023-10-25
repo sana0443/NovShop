@@ -34,7 +34,6 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <!-- Default theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
-    {% comment %} <link rel="stylesheet" href="{% static '/css/profile.css'%}"  type="text/css"> {% endcomment %}
 
 
     
@@ -65,8 +64,7 @@
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
             <a href="">Login</a>
-            {% comment %} {% if user.is_authenticated %} {% endcomment %}
-            {% comment %} {% endif %} {% endcomment %}
+
             <a href="#">Register</a>
            
          
@@ -81,7 +79,7 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <h2>SheHive</h2>
+                        <h2>NovShop</h2>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -91,8 +89,6 @@
                            
                              <li><a href="{% url 'products' 0 %}">Shop</a></li>
                             
-                            {% comment %} <li><a href="{% url 'profile' %}">profile</a></li>
-                            <li><a href="{% url 'orders' %}">My Account</a></li> {% endcomment %}
                         </ul>
                     </nav>
                 </div>
@@ -115,10 +111,7 @@
                         {% endif %}
                         </div>
                         <ul class="header__right__widget">
-                            {% comment %} <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="{% url 'wishlists'  %}"><span class="icon_heart_alt"></span> 
-                                <div class="tip">{{wishlist_count}}</div>
-                            </a></li> {% endcomment %}
+                          
                             <li><a href="{% url 'show-cart' %}"><span class="icon_bag_alt"></span>
                                 <div class="tip">{{cart_count}}</div>
                             </a></li>
@@ -246,13 +239,7 @@
             </ul>
           </div>
         </div>
-        {% comment %} <div class="col-lg-4 col-md-8 col-sm-8">
-          <div class="footer__newslatter">
-            <h6>NEWSLETTER</h6>
-            <form action="#">
-                <input type="text" class="form-control" placeholder="Email" style="width: 200px;">
- <button type="submit" class="site-btn">Subscribe</button>
-            </form> {% endcomment %}
+     
             <div class="footer__social">
               <a href="#"><i class="fa fa-facebook"></i></a>
               <a href="#"><i class="fa fa-twitter"></i></a>
@@ -274,19 +261,7 @@
         </div>
     </footer>
 </div>
-    <!-- Footer Section End -->
-    
-    <!-- Search Begin -->
-    {% comment %} <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form action="{% url 'search' %} " class="search-model-form" method="GET">
-                <input type="text" id="search-input" placeholder="Search here....." name="keyword">
-            </form>
-        </div>
-    </div>
-     {% endcomment %}
-    <!-- Search End -->
+
     
     <!-- Js Plugins -->
     {% block scripts %}{% endblock %}
@@ -303,10 +278,7 @@
     </script>
 
 
-      <!-- image zooming js -->
-      {% comment %} <script src="{% static 'js/zoomsl.js' %}"></script>
-      <script src="{% static 'js/zoomsl.min.js' %}"></script>
-   {% endcomment %}
+ 
      
     <script src="{% static  'js/jquery-3.6.0.min.js'%}"></script>
     <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>

@@ -100,54 +100,8 @@
 
                 </div>
             </div>
-            {% comment %} <div class="row">
-                <div class="col-lg-6 col-12">
-                    <div class="discount__content">
-                        <h6>Discount codes</h6>
-                        <form action="{% url 'coupen' %}" method='POST'>
-                            {% csrf_token %}
-                            <input type="text" name="code" id="code" placeholder="Enter your coupon code">
-                            <button type="submit" class="site-btn">Apply</button>
-                        </form>
-                    </div>
-                </div> {% endcomment %}
+        
 
-                {% comment %} <div class="col-lg-4 offset-lg-2 col-12">
-                    <div class="cart__total__procced">
-                        <h6>Cart total</h6>
-                        <ul>
-                            <li>Shipping amount <span>60</span></li>
-                            {% if coupen == 0 %}
-                            <li>Discount <span>0.00</span></li>
-                            {% else %}
-                           
-
-                            {% endif %}
-                            <li>Total <span>{{total_amount}}</span></li>
-                        </ul>
-                        <a href="{% url 'place_order' %}" class="primary-btn">Proceed to checkout</a>
-                    </div>
-                </div> {% endcomment %}
-                {% comment %} <div class="col-lg-4 offset-lg-2 col-12">
-                    <div class="cart__total__procced">
-                        <h6>Available Coupons</h6>
-                        <ul>
-                            {% for c in coupons %}
-                            <li>{{ c.code }} - {{ c.discount }}% off</li>
-                          
-                            {% endfor %}
-                          </ul>
-                        </div>
-                     
-                        </ul>
-                        
-                    </div>
-                </div> {% endcomment %}
-
-
-
-
-               
             </div>
         </div>
     </div>
