@@ -81,7 +81,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'Admin.ad_context_processors.dashboard',
                 'products.product_context.counts'
             ],
         },
@@ -111,26 +110,18 @@ DATABASES = {
 }
 
 
-# DATABASES = {
-#      'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'shehive',
-#         'USER': 'sana',
-#         'PASSWORD': '7z6DrvS6TjZkw86mQtZRsWeT8sGyp7y9',
-#         'HOST': 'dpg-cjop4g61208c73eo17b0-a',
 
-#     }
-# }
 
-DATABASES = {"default": dj_database_url.parse(env("RENDER_POSTGRES_EXTERNAL_URL"))}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
+   
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
@@ -155,8 +146,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -173,20 +163,17 @@ LOGIN_URL='login'
 LOGIN_REDIRECT_URL='home'
 STATIC_URL="/static/"
 
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT=587
-EMAIL_HOST_USER='sanadharwish4@gmail.com'
-EMAIL_HOST_PASSWORD='dwxxucjpifpkwwfo'
-EMAIL_USE_TLS=True
+# EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST='smtp.gmail.com'
+# EMAIL_PORT=587
+# EMAIL_HOST_USER='sanadharwish4@gmail.com'
+# EMAIL_HOST_PASSWORD='dwxxucjpifpkwwfo'
+# EMAIL_USE_TLS=True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-razor_pay_key_id= 'rzp_test_xDSPKfOJ3QTf4e'
-key_secret= 'dgSTPqera5hlE0mEy0P0hWyV'
 
 
 TIME_ZONE = 'Asia/Kolkata'

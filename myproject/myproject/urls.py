@@ -23,9 +23,9 @@ if settings.DEBUG:
     import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/',include('home.urls')),
     path('products/',include('products.urls')),
     path('',include('Accounts.urls')),
+    path('home/',include('home.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
     path('',include('Admin.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

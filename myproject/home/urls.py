@@ -8,7 +8,7 @@ urlpatterns = [
     path('signin/',views.Signin,name='signin'),
     # path('home/',views.home,name='home'),
     # path('',views.home2,name='home2'),
-    path('profile/',views.Profile,name='profile'),
+    # path('profile/',views.Profile,name='profile'),
     path('logout/',views.logoutuser,name="logout"),
     path('signup/',views.signup,name="signup"),
    
@@ -28,7 +28,7 @@ urlpatterns = [
 		PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), 
 		name="password_reset_complete"),
 
-	path('resendOTP',views.resend_otp),
+	
 	# path('send-promotional-email/',views.send_promotional_email, name='send_promotional_email'),
 
 

@@ -1,21 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
-from products.models import Category,product,Order,OrderItem,Address
-from home.models import profile
+from products.models import Category,product
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView
-from django.db.models import Sum
-from django.db.models.functions import TruncMonth
-from datetime import timedelta, date
-from django.db.models import Count
-from django.db.models import Q
 from django.contrib.auth.models import auth
-
-
-
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 # Create your views here.
@@ -35,18 +25,11 @@ def adminLogin(request):
         except:
             msg = "Invalid Credentials"
     dic = {'msg': msg}
-    return render(request, 'Adminside/admin_dsbd.html' , dic)
+    return render(request, 'Adminside/add_products.html' , dic)
 
 def adminHome(request):
     return render(request, 'Adminside/Adbase.html')   
-
-def admin_dashboard(request):
-    return render(request, 'Adminside/admin_dsbd.html') 
-
-def logoutadmin(request):
-        auth.logout(request)
-        return render(request,'home.html')
-
+ 
 
 def add_category(request):
     if request.method == "POST":
@@ -58,22 +41,6 @@ def add_category(request):
          msg = "Category added"
     return render(request, 'Adminside/add_category.html', locals())
 
-def view_category(request):
-
-    if request.method == 'POST':
-      keyword = request.POST['keyword']
-      category= Category.objects.filter(Q(name__icontains=keyword) |  Q(created__icontains=keyword) ).order_by('name')
-
-    
-    else:
-        category = Category.objects.all().order_by('name')
-  
-    paginator   = Paginator(category, 2) 
-    page        = request.GET.get('page')
-    paged_users = paginator.get_page(page)
-  
-    
-    return render(request, 'Adminside/view_category.html',locals())
 
 
 def edit_product(request, pid):
@@ -96,23 +63,6 @@ def edit_product(request, pid):
         messages.success(request, "Product Updated")
     return render(request, 'Adminside/edit_product.html', locals())
 
-
-
-
-def edit_category(request, pid):
-  if Category.objects.filter(name__iexact=name.lower().replace(' ', '')).exists():
-    category = Category.objects.get(id=pid)
-    if request.method == "POST":
-        name = request.POST['name']
-        category.name = name
-        category.save()
-        msg = "Category Updated"
-    return render(request, 'Adminside/edit_category.html', locals())
- 
-def delete_category(request, pid):
-    category = Category.objects.get(id=pid)
-    category.delete()
-    return redirect('view_category') 
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -148,7 +98,6 @@ def view_product(request):
 
     if request.method == 'POST':
       keyword = request.POST['keyword']
-      order = product.objects.order_by('id').filter(Q(title__icontains=keyword) |  Q(category__name__icontains=keyword)  |  Q(discount_price__icontains=keyword) )
     else:
 
      order = product.objects.all().order_by('-id')
@@ -163,114 +112,9 @@ def delete_product(request, pid):
     messages.success(request, "Product Deleted")
     return redirect('view_product')
 
-
-def manage_order(request):
-
-    if request.method == 'POST':
-      keyword = request.POST['keyword']
-      orders = Order.objects.order_by('id').filter(Q(name__icontains=keyword) |  Q(order_status__icontains=keyword)  |  Q(id__icontains=keyword) )
-    else:
-     orders=Order.objects.all().order_by('id')
-
-    action = request.GET.get('action', 0)
-    order = Order.objects.filter(order_status=int(action))
-    order_statuses = Order.order_statuses
-    Order_status = order_statuses[int(action)-1][1]
-    paginator   = Paginator(orders, 5) 
-    page        = request.GET.get('page')
-    paged_users = paginator.get_page(page)
-
-    
-
-    if int(action) == 0:
-        orders = Order.objects.filter()
-        order_status = 'All'
-      
-    return render(request, 'Adminside/order_manage.html', locals()) 
-
-def admin_view_order(request,trackno):
-    orders=Order.objects.get(tracking_number=trackno)
-    # address=Order.objects.filter(user=request.user).first
-   
-    orderitem=OrderItem.objects.filter(order=orders)
-    context={
-    'orderitem':orderitem,
-    'orders':orders,
-    # 'address':address
-    }
-    return render(request,'Adminside/admin_view_order.html',context)
-
-
-def order_shipping(request,trackno):
-    
-    order = Order.objects.get(tracking_number=trackno)
-    order.order_status = 'Out for Delivery'
-    order.save()
-    return redirect('order_manage')
-
-def order_delivered(request, trackno):
-    order = Order.objects.get(tracking_number=trackno)
-    order.order_status = 'Delivered'
-    order.save()
-    return redirect('order_manage')
-
-
-def order_cancelled(request, trackno):
-    order = Order.objects.get(tracking_number=trackno)
-    order.order_status = 'Delivered'
-    order.save()
-    return redirect('order_manage')
-
-def order_shipped(request, trackno):
-    order = Order.objects.get(tracking_number=trackno)
-    order.order_status = 'Shipped'
-    order.save()
-    return redirect('order_manage')
-
-
-
-def manage_user(request):
-    
-    if request.method == 'POST':
-      keyword = request.POST['keyword']
-      users = profile.objects.filter(Q(name__icontains=keyword) |  Q(email__icontains=keyword) | Q(phone__icontains=keyword)).order_by('id')
-
-    
-    else:
-        users = profile.objects.order_by('id')
-
-    paginator   = Paginator(users, 1) 
-    page        = request.GET.get('page')
-    paged_users = paginator.get_page(page)
-
-    context = {
-        'users' : paged_users,
-    }
-    return render(request, 'Adminside/user_management.html', context)
-
-
-
-
-def block_user(request, user_id):
-      user = profile.objects.get(id=user_id)
-      if user.user.username != 'admin':
-
-       
-        user.is_active = False
-        user.save()
-
-      return redirect('manage_user')
-
-   
-
-
-def unblock_user(request, user_id):
-
-        user = profile.objects.get(id=user_id)
-        user.is_active = True
-        user.save()
-
-        return redirect('manage_user')
+def logoutadmin(request):
+        auth.logout(request)
+        return render(request,'home.html')
 
 
 def error(request,exception):

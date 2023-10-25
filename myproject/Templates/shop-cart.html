@@ -100,7 +100,7 @@
 
                 </div>
             </div>
-            <div class="row">
+            {% comment %} <div class="row">
                 <div class="col-lg-6 col-12">
                     <div class="discount__content">
                         <h6>Discount codes</h6>
@@ -110,9 +110,9 @@
                             <button type="submit" class="site-btn">Apply</button>
                         </form>
                     </div>
-                </div>
+                </div> {% endcomment %}
 
-                <div class="col-lg-4 offset-lg-2 col-12">
+                {% comment %} <div class="col-lg-4 offset-lg-2 col-12">
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
@@ -120,15 +120,15 @@
                             {% if coupen == 0 %}
                             <li>Discount <span>0.00</span></li>
                             {% else %}
-                            <li>Discount <span>{{coupen}}</span></li>
+                           
 
                             {% endif %}
                             <li>Total <span>{{total_amount}}</span></li>
                         </ul>
                         <a href="{% url 'place_order' %}" class="primary-btn">Proceed to checkout</a>
                     </div>
-                </div>
-                <div class="col-lg-4 offset-lg-2 col-12">
+                </div> {% endcomment %}
+                {% comment %} <div class="col-lg-4 offset-lg-2 col-12">
                     <div class="cart__total__procced">
                         <h6>Available Coupons</h6>
                         <ul>
@@ -142,7 +142,7 @@
                         </ul>
                         
                     </div>
-                </div>
+                </div> {% endcomment %}
 
 
 

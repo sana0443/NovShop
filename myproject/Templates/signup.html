@@ -16,98 +16,80 @@
 <body>
 
 
-<section class="vh-100 bg-image"
-  style="background-image: url('https://img.freepik.com/free-photo/happy-young-woman-checking-her-phone_23-2148385676.jpg?w=2000&t=st=1694236671~exp=1694237271~hmac=feeb2994679f21fa565356a322b261ca9ade60968375b8841149be0ced80e507');">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-              {% for message in messages %}
-              <div class="alert alert-danger" role="alert">
-                {{message}}
-              {% endfor %}
-            </div>
-            {% if otp %}
-                          <form method="POST">
-                            {% csrf_token %}
-                            <fieldset class="form-group">
-                                <legend class="border-bottom display">
-                                    <h3 class="float-left">Verify Your Email</h3>
 
-                                {% comment %} <img src="{% static 'main/img/logo.png' %}" class="logo float-right pt-1" width="25"> {% endcomment %}
-                                </legend>
-                                <input type="hidden" name="usr" value="{{usr.username}}">
-                                <div class="input-group mb-3">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">OTP</span>
-                                  </div>
-                                  <input type="text" class="form-control" placeholder="Enter Your OTP" aria-label="OTP" aria-describedby="basic-addon1" name = 'otp'>
-                                </div>
-                                
-                            </fieldset>
-                            <div class="form-grounp">
-                                <button class="btn mainbtn" type="submit">Verify</button>
-                                <small class="float-right text-muted"><i><a href="#" class="text-dark" 
-                                  onclick="ReSendOTP('{{usr.username}}', 'resendOTPmess')"><i id="resendOTPmess">Resend</i> OTP</a></small>
 
-                            </div>
 
-                        </form>
-                        {% else %}
-             
+<section class="vh-100" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                  {{message}}
+                {% endfor %}
+              </div>
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-              <form action="{% url 'signup' %}" method="POST">
-                {% csrf_token %}
-                <div class="form-outline mb-4">
-                  {% comment %} <input type="text"name="username" id="form3Example1cg" class="form-control form-control-lg" required /> {% endcomment %}
-                  {{form.name}}
-                  <label class="form-label" for="form3Example1cg">Your Name</label>
-                </div>
+                
+                  <form class="mx-1 mx-md-4" action="{% url 'signup' %}" method="POST">
+                    {% csrf_token %}
 
-                <div class="form-outline mb-4">
-                  {% comment %} <input type="email"name="email" id="form3Example3cg" class="form-control form-control-lg"required  /> {% endcomment %}
-                  {{form.username}}
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
-                </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      {{form.name}}
+                      <label class="form-label" for="form3Example1c">Your Name</label>
+                    </div>
+                  </div>
 
-                <div class="form-outline mb-4">
-                  {% comment %} <input type="password" name="password" id="form3Example4cg" class="form-control form-control-lg"required  /> {% endcomment %}
-                  {{form.password1}}
-                  <label class="form-label" for="form3Example4cg">Password</label>
-                </div>
-                <div class="form-outline mb-4">
-                  {% comment %} <input type="password" name="password" id="form3Example4cg" class="form-control form-control-lg"required  /> {% endcomment %}
-                  {{form.password2}}
-                  <label class="form-label" for="form3Example4cg">confirm Password</label>
-                </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      {{form.username}}
+                      <label class="form-label" for="form3Example3c">Your Email</label>
+                    </div>
+                  </div>
 
-                {% comment %} <div class="form-outline mb-4">
-                  <input type="password" name="password2" id="form3Example4cdg" class="form-control form-control-lg"required  />
-                 {{password2}}
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                </div> {% endcomment %}
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      {{form.password1}}
+                      <label class="form-label" for="form3Example4c">Password</label>
+                    </div>
+                  </div>
 
-                <div class="form-check d-flex justify-content-center mb-5">
-                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
-                  <label class="form-check-label" for="form2Example3g">
-                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
-                  </label>
-                </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                    {{form.password2}}
+                      <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                    </div>
+                  </div>
 
-                <div class="d-flex justify-content-center">
-                  <button type="submit"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                </div>
+                  <div class="form-check d-flex justify-content-center mb-5">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                    <label class="form-check-label" for="form2Example3">
+                      I agree all statements in <a href="#!">Terms of service</a>
+                    </label>
+                  </div>
 
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
-                    class="fw-bold text-body"><u>Login here</u></a></p>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                  </div>
 
-              </form>
-              {% endif %}
+                </form>
 
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
+              </div>
             </div>
           </div>
         </div>
@@ -116,7 +98,6 @@
   </div>
 </section>
 
-</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

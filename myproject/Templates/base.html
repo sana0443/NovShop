@@ -89,12 +89,12 @@
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            {% comment %} <li class="active"><a href="{% url 'home' %}">Home</a></li> {% endcomment %}
                            
                              <li><a href="{% url 'products' 0 %}">Shop</a></li>
                             
-                            <li><a href="{% url 'profile' %}">profile</a></li>
-                            <li><a href="{% url 'orders' %}">My Account</a></li>
+                            {% comment %} <li><a href="{% url 'profile' %}">profile</a></li>
+                            <li><a href="{% url 'orders' %}">My Account</a></li> {% endcomment %}
                         </ul>
                     </nav>
                 </div>
@@ -106,7 +106,7 @@
                         {% if user.is_authenticated %}
                             {% if user.is_superuser %}
                             <ul>
-                            <li class="fa fa-user"> <a href="{% url 'admin_dsbd' %}">admin</a></li>
+                            <li class="fa fa-user"> <a href="{% url 'add_product' %}">admin</a></li>
                             <a href="{% url 'logout' %}">logout</a>
                             {% else %}
                             <a href="{% url 'logout' %}">logout</a>
@@ -117,10 +117,10 @@
                         {% endif %}
                         </div>
                         <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
+                            {% comment %} <li><span class="icon_search search-switch"></span></li>
                             <li><a href="{% url 'wishlists'  %}"><span class="icon_heart_alt"></span> 
                                 <div class="tip">{{wishlist_count}}</div>
-                            </a></li>
+                            </a></li> {% endcomment %}
                             <li><a href="{% url 'show-cart' %}"><span class="icon_bag_alt"></span>
                                 <div class="tip">{{cart_count}}</div>
                             </a></li>
@@ -279,7 +279,7 @@
     <!-- Footer Section End -->
     
     <!-- Search Begin -->
-    <div class="search-model">
+    {% comment %} <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch">+</div>
             <form action="{% url 'search' %} " class="search-model-form" method="GET">
@@ -287,7 +287,7 @@
             </form>
         </div>
     </div>
-    
+     {% endcomment %}
     <!-- Search End -->
     
     <!-- Js Plugins -->

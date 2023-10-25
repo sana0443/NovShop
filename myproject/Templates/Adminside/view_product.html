@@ -38,7 +38,7 @@
 
 <div class="card shadow">
     <div class="card-body">
-        <div class="d-flex mb-3 justify-content-end">
+        {% comment %} <div class="d-flex mb-3 justify-content-end">
             <form action="{% url 'view_product' %}" class="search" method="POST">
               {% csrf_token %} 
               <div class="input-group w-100">
@@ -51,7 +51,7 @@
                 </div>
               </div>
             </form>
-          </div>
+          </div> {% endcomment %}
 
         <h5 class="p-2" style="border-bottom: 2px solid orange;">All Product</h5>
         <div class="container-fluid">

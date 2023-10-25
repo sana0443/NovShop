@@ -83,53 +83,6 @@ class Address(models.Model):
     postal_code = models.CharField(max_length=100)
 
 
-
-
-
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name=models.CharField(max_length=150,null=True)
-    address=models.TextField(max_length=300,null=True)
-    city=models.CharField(max_length=150,null=True)
-    state=models.CharField(max_length=150,null=True)
-    country=models.CharField(max_length=150,null=True)
-    postal_code=models.CharField(max_length=50,null=True)
-    
-    email=models.CharField(max_length=150,null=True)
-    product = models.ForeignKey(product, on_delete=models.CASCADE,null=True)
-    quantity = models.PositiveIntegerField(default=1)
- 
-    total_price=models.CharField(max_length=50,null=True)
-    payment_mode=models.CharField(max_length=50,null=True)
-    payment_id=models.CharField(max_length=50,null=True)
-    
-    order_statuses =(
-        ('Order confirmed','Order confirmed'),
-        ('Shipped','Shipped'),
-        ('Out for Delivery','Out for Delivery'),
-        ('Delivered','Delivered'),
-        ('Cancelled','Cancelled')
-
-    )
-    order_status=models.CharField(max_length=50,choices=order_statuses,default='Order confirmed')
-    message=models.TextField(null=True)
-    tracking_number=models.CharField(max_length=50,null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_updated=models.DateTimeField(auto_now_add=True)
-    wallet_amt=models.FloatField(null=True,default=0)
-    coupon = models.CharField(max_length=100,default=0)
-
-    def __str__(self):
-        return f"{self.tracking_number}"
-
-class OrderItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-
     # def __str__(self) :
     #     return '{}'.format(self.product)
     # def __str__(self):
@@ -141,28 +94,9 @@ class OrderItem(models.Model):
 #     user=models.ForeignKey(User,on_delete=models.CASCADE)
 #     products=models.ManyToManyField(product)
 
-class Wishlist(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    products = models.ManyToManyField(product, blank=True)
 
 
 
-
-class coupen(models.Model):
-    code=models.CharField(max_length=50)
-    discount=models.FloatField()
-    valid_from=models.DateTimeField()
-    valid_to=models.DateTimeField()
-    active=models.BooleanField()
-
-
-class Refund(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-
-class Wallet(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    balance = models.FloatField(default=0)
 
 
 
