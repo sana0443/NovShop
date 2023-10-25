@@ -25,7 +25,7 @@ def signup(request):
             user = form.save()
             login(request, user)
             messages.success(request, f'Account is created for {user.username}')
-            return render(request, 'shop.html')
+            return render(request, 'index.html')
         else:
             messages.warning(request, 'Registration failed. Please correct the errors below.')
 
@@ -48,7 +48,7 @@ def Signin(request):
                  login(request,user)
                  messages.success(request,f'Welcome , {user.username}')
                 
-                 return render(request, 'shop.html')  
+                 return render(request, 'index.html')  
 
             else:
                  messages.info(request,'username or password is incorrect')
