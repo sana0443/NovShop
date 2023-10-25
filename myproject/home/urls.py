@@ -6,12 +6,8 @@ from django.contrib.auth.views import LoginView,LogoutView,PasswordResetView, Pa
 
 urlpatterns = [
     path('signin/',views.Signin,name='signin'),
-    # path('home/',views.home,name='home'),
-    # path('',views.home2,name='home2'),
-    # path('profile/',views.Profile,name='profile'),
     path('logout/',views.logoutuser,name="logout"),
     path('signup/',views.signup,name="signup"),
-   
     path("password-reset/", 
     	PasswordResetView.as_view(template_name='password_reset.html'),
     	name="password_reset"),
@@ -29,7 +25,6 @@ urlpatterns = [
 		name="password_reset_complete"),
 
 	
-	# path('send-promotional-email/',views.send_promotional_email, name='send_promotional_email'),
 
 
 ]
