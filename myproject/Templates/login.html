@@ -120,10 +120,19 @@
     
     </head>
 <body>
+
+
     <div class="container"style= color:>
       <form action="{% url 'signin' %}"  method="POST">
         {% csrf_token %}
         <h2>Login</h2>
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
         <label for="username">Username or email</label>
         <input type="text" id="username" name="username" required>
         <label for="password">Password</label>

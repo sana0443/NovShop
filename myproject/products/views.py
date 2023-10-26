@@ -6,6 +6,7 @@ from django.contrib import messages
 from home.models import User
 from django.contrib.auth.models import auth
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 
 
@@ -37,46 +38,43 @@ def add_to_cart(request, prod_id):
     return redirect('show-cart')
 
 def show_cart(request):
-
     if request.user.is_authenticated:
         user = request.user
-        items_in_cart = cart.objects.filter(user=user)
-        amount = 0.0
-        total_amount = 0.0
-
-        cart_product = [p for p in cart.objects.all() if p.user == user]
-
-        if cart_product:
-         for p in cart_product:
-            tempamount = (p.quantity * p.product.discount_price)
-            amount += tempamount
-  
-            total_amount = amount 
-            
 
         if request.method == 'POST':
             item_id = request.POST.get('item_id')
             item_quantity = request.POST.get('item_quantity')
 
-            cart_item = cart.objects.get(id=item_id)
-            cart_item.quantity = item_quantity
-            cart_item.save()
+            try:
+                cart_item = cart.objects.get(id=item_id, user=user)
+                cart_item.quantity = item_quantity
+                cart_item.save()
 
-            return redirect('show-cart')
+                # Calculate the new total amount for the cart item
+                new_total_amount = cart_item.quantity * cart_item.product.discount_price
 
-        context = {
-            'items_in_cart': items_in_cart,
-            'total_amount': total_amount,
-            'amount': amount,
-            
-         
-        }
-  
-    
-        return render(request, 'shop-cart.html', context)
+                # Recalculate the cart total
+                items_in_cart = cart.objects.filter(user=user)
+                amount = sum(cart.quantity * cart.product.discount_price for cart in items_in_cart)
+
+                return JsonResponse({'total_amount': new_total_amount, 'cart_amount': amount})
+            except cart.DoesNotExist:
+                return JsonResponse({'error': 'Cart item not found'}, status=400)
+
+        else:
+            items_in_cart = cart.objects.filter(user=user)
+            amount = sum(cart.quantity * cart.product.discount_price for cart in items_in_cart)
+            total_amount = amount
+
+            context = {
+                'items_in_cart': items_in_cart,
+                'total_amount': total_amount,
+                'amount': amount,
+            }
+
+            return render(request, 'shop-cart.html', context)
     else:
         return redirect('signin')
-   
 
 
 def remove_cart_item(request,cart_id):

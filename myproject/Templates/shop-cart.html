@@ -1,136 +1,178 @@
 {% extends 'base.html' %}
 {% load static %}
 
-    <!-- Header Section End -->
+<!-- Header Section End -->
 
-    <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>Shopping cart</span>
-                    </div>
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <span>Shopping cart</span>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Breadcrumb End -->
+</div>
+<!-- Breadcrumb End -->
 
-    <!-- Shop Cart Section Begin -->
-    {% block content %}
-    <div class="container" style="overflow:hidden">
-    <section class="shop-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-12 " style="width:50%">
-                   
-                    <div class="shop__cart__table" >
-                         {% if items_in_cart %}
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for cart in items_in_cart %}
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="{{cart.product.product_image.url}}"  style="width: 100px;" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>{{cart.product.title}}</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            {% if cart.variations.all %}
-                                            {% for item in cart.variations.all %}
-                                            {{item.variation_category |capfirst}} : {{item.variation_value |capfirst}} 
-                                            {% endfor %}
-                                           
-                                            {% endif %}
+<!-- Shop Cart Section Begin -->
+{% block content %}
+<div class="container" style="overflow:hidden">
+    <div id="cart-update-message"></div>
+<section class="shop-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12 " style="width:50%">
+               
+                <div class="shop__cart__table" >
+                     {% if items_in_cart %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cart in items_in_cart %}
+                            <tr>
+                                <td class="cart__product__item">
+                                    <img src="{{cart.product.product_image.url}}"  style="width: 100px;" alt="">
+                                    <div class="cart__product__item__title">
+                                        <h6>{{cart.product.title}}</h6>
+                                        <div class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
                                         </div>
-                                    </td>
-                                    <td class="cart__price col-12">{{cart.product.discount_price}}</td>
-                                    <form method="post">
-                                        {% csrf_token %}
-                                       <input type="hidden" name="item_id" value="{{ cart.id }}">
+                                        {% if cart.variations.all %}
+                                        {% for item in cart.variations.all %}
+                                        {{item.variation_category |capfirst}} : {{item.variation_value |capfirst}} 
+                                        {% endfor %}
+                                       
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="cart__price col-12">{{cart.product.discount_price}}</td>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="item_id" value="{{ cart.id }}">
+                                    <!-- In your HTML template -->
+                                  
                                     <td class="cart__quantity col-12">
                                         <div class="pro-qty col-12">
-                                            <input type="number" name="item_quantity" value="{{ cart.quantity }}" min="1">
+                                            <input type="number" name="item_quantity" value="{{ cart.quantity }}" min="1" class="cart-quantity-input" data-cart-item-id="{{ cart.id }}" data-product-price="{{ cart.product.discount_price }}">
                                         </div>
                                     </td>
-                                    <td class="cart__total col-12">{%widthratio cart.product.discount_price 1 cart.quantity %}</td>
-                               
+                           
+                                    <td class="cart__total col-12" data-cart-item-total="{{ cart.id }}">
+                                        {% widthratio cart.product.discount_price 1 cart.quantity %}
+                                    </td>
                                     <td class="cart__close "> <a href="{% url 'remove_cart_item' cart.id %}" class="icon_close"></a>
                                         <input type="hidden" name="cart_id" value="{{ cart.id }}">
-                                           </td>
-         
-                                         {% endfor %} 
-                                          
-                                </tr>
-                               
-                   
-                               
-                            </tbody>
-                        </table>
-                    </div>
+                                    </td>
+                                </form>
+                            </tr>
+                            {% endfor %} 
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="cart__btn">
-                        <a href="{% url 'products' 0 %}">Continue Shopping</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="cart__btn update__btn">
-                        <button type="submit" class="site-btn">Update</button>
-                    </form>
-                    </div>
+        </div>
 
-
-                    <div class="col-lg-9 offset-lg-2 col-12">
-                        <div class="cart__total__procced">
-                            <h6>Cart total</h6>
-                            <ul>
-                                
-                                <li>Total <span>{{total_amount}}</span></li>
-                            </ul>
-                        </div>
-                    </div>
+        <div class="col-lg-4 offset-lg-2 col-12">
+            <div class="cart__total__procced">
+                <h6>Cart total</h6>
+                <ul>
+                   
+                    <li>Total <span id="cart-total">{{ total_amount }}</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="cart__btn">
+                    <a href="{% url 'products' 0 %}">Continue Shopping</a>
                 </div>
             </div>
         
-
-            </div>
         </div>
     </div>
-    </section>
-    {%else%}
+</div>
+</div>
+</section>
+
+<!-- Include jQuery -->
 
 
-    <div class="container d-flex flex-column justify-content-center align-items-center vh-50">
-      <div class="product__item__pic mb-5 text-center">
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $(".cart-quantity-input").on("input", function() {
+        var $input = $(this);
+        var newQuantity = $input.val(); 
+        var cartItemId = $input.data("cart-item-id"); 
+        var productPrice = $input.data("product-price"); 
+        var totalTd = $(`.cart__total[data-cart-item-total="${cartItemId}"]`); 
+
+        var newTotal = newQuantity * productPrice;
+        totalTd.text(newTotal);
+        var cartTotal = 0;
+        $('.cart__total').each(function() {
+            cartTotal += parseFloat($(this).text());
+        });
+
+       
+        $("#cart-total").text(cartTotal);
+
+     
+        $.ajax({
+            type: "POST",
+            url: "products/cart/",
+            data: {
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                item_id: cartItemId,
+                item_quantity: newQuantity
+            },
+            success: function(response) {
+               
+                $("#cart-total").text(response.cart_amount);
+            },
+            error: function(error) {
+                console.error("Error updating cart item:", error);
+            }
+        });
+        
+    });
+});
+</script>
+
+
+
+
+
+  
+
+{% else %}
+<div class="container d-flex flex-column justify-content-center align-items-center vh-50">
+    <div class="product__item__pic mb-5 text-center">
         <h1><span class="text-dark">Your cart is </span><span class="text-danger">empty</span>!</h1>
         <a href="{% url 'products' 0 %}" class="btn btn-danger mt-3">Go shopping</a>
-      </div>
     </div>
-    
- 
-  {% endif %}
+</div>
+{% endif %}
 
-  {% endblock %}
-    <!-- Shop Cart Section End -->
+{% endblock %}
 
-    <!-- Instagram Begin -->
-   
