@@ -29,31 +29,31 @@ class product(models.Model):
         return self.title
 
 
-class variationManager(models.Manager):
-    def colors(self):
-        return super(variationManager,self).filter(variation_category='color',is_active=True)
+# class variationManager(models.Manager):
+#     def colors(self):
+#         return super(variationManager,self).filter(variation_category='color',is_active=True)
 
-    def sizes(self):
-        return super(variationManager,self).filter(variation_category='size',is_active=True)
+#     def sizes(self):
+#         return super(variationManager,self).filter(variation_category='size',is_active=True)
 
 
-variation_category_choice=(
-    ('color','color'),
-    ('size','size'),
+# variation_category_choice=(
+#     ('color','color'),
+#     ('size','size'),
 
-)
+# )
 
-class variation(models.Model):
-     product=models.ForeignKey(product,on_delete=models.CASCADE)
-     variation_category=models.CharField(max_length=100,choices=variation_category_choice)
-     variation_value=models.CharField(max_length=100)
-     is_active=models.BooleanField(default=True)
-     created_at=models.DateTimeField(auto_now=True)
+# class variation(models.Model):
+#      product=models.ForeignKey(product,on_delete=models.CASCADE)
+#      variation_category=models.CharField(max_length=100,choices=variation_category_choice)
+#      variation_value=models.CharField(max_length=100)
+#      is_active=models.BooleanField(default=True)
+#      created_at=models.DateTimeField(auto_now=True)
 
-     objects=variationManager()
+#      objects=variationManager()
 
-     def __str__(self):
-        return self. variation_value
+#      def __str__(self):
+#         return self. variation_value
 
 
 
@@ -61,7 +61,7 @@ class cart(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE) 
     product=models.ForeignKey(product,on_delete=models.CASCADE)
     quantity=models.PositiveBigIntegerField(default=1)
-    variations=models.ManyToManyField(variation) 
+    # variations=models.ManyToManyField(variation) 
     coupon=models.CharField(max_length=100) 
 
     @property  
@@ -83,16 +83,6 @@ class Address(models.Model):
     postal_code = models.CharField(max_length=100)
 
 
-    # def __str__(self) :
-    #     return '{}'.format(self.product)
-    # def __str__(self):
-    #     return '{} {}'.format(self.order.id,self.order.tracking_number)
-
-
-
-# class Wishlist(models.Model):
-#     user=models.ForeignKey(User,on_delete=models.CASCADE)
-#     products=models.ManyToManyField(product)
 
 
 

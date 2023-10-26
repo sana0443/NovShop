@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 
 from django.views import View
-from.models import product,cart,Category,variation
+from.models import product,cart,Category
 from django.contrib import messages
 from home.models import User
 from django.contrib.auth.models import auth
@@ -104,29 +104,9 @@ def products(request,pid):
     return render(request, "shop.html", locals())
 
 
-def place_order(request):
-    current_user=(request.user)
-    cartitems=cart.objects.filter(user=request.user)
-  
-    shipping_amt=60
-    sub_total=0
-    total=0
- 
-    quantity=0
-    
-    for item in cartitems:
-        total += (item.product.discount_price * item.quantity)
-        quantity += item.quantity
-    sub_total = total
-    grand_total = int(sub_total + shipping_amt)
 
 
-def view_product(request):
-    Product = product.objects.all()
-    cart_items = cart.objects.filter(user=request.user)
-    count = len(cart_items)
-  
-    return render(request, 'view_product.html', locals())
+
 
 
 

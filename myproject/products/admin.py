@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import product, cart, Category,Address,variation
+from .models import product, cart, Category,Address
 
 
 class ProductModelAdmin(admin.ModelAdmin):
@@ -8,14 +8,7 @@ class ProductModelAdmin(admin.ModelAdmin):
 class cartModelAdmin(admin.ModelAdmin):
     list_display=['id','product','quantity']
 
-# class variationModelAdmin(admin.ModelAdmin):
-#     list_display = [ 'product', 'variation_category', 'variation_value', 'is_active']
-#     list_editable=['is_active',]
-#     list_filter=['product','variation_category','variation_value']
 
-#     def get_category(self, obj):
-#         return obj.category.name if obj.category else ''
-#     get_category.short_description = 'Category'
 
 admin.site.register(product, ProductModelAdmin)
 admin.site.register(cart,cartModelAdmin)
