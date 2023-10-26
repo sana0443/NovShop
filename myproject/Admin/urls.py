@@ -9,7 +9,6 @@ from django.conf.urls.static import static
 urlpatterns = [
 
 path('admin-login/', views.adminLogin, name="admin_login"),
-path('admin-home/',views.adminHome,name="admin_home"),
 path('add-product',views.add_product,name="add_product"),
 path('edit-product/<int:pid>',views.edit_product,name='editproduct'),
 path('view-product',views.view_product,name="view_product"),
