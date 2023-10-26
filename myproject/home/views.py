@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 # from Accounts.views import home
 from products.views import cart,products
-from.models import profile
 from django.shortcuts import get_object_or_404
 from django.views import View
 from django.contrib.auth.models import User
@@ -11,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 # from.models import signup
 from .forms import SignUpForm
-from. models import UserOTP
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse

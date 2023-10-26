@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from products.models import Category, product,  Address, cart
+from products.models import Category, product, cart
 from django.contrib.auth.models import User
 from django.db.utils import ProgrammingError  # Import the exception
 
